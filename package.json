@@ -7,11 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "babel-node": "babel-node --presets=latest",
     "start": "nodemon --exec npm run babel-node -- ./index.js",
-    "build": "babel ./ -d dist"  },
+    "build": "babel ./ -d dist --source-maps"
+  },
   "author": "Phi Huynh",
   "license": "MIT",
   "dependencies": {
-    "fs": "0.0.1-security"
+    "ccxt": "^1.10.810",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -15,12 +15,15 @@ export class TradeBot {
     async execute() {
         const delay = time => new Promise(res => setTimeout(() => res(), time));
         while (true) {
-            var tradeInfoAnalyzer = new TradeInfoAnalyzer()
-            tradeInfoAnalyzer.updateCoinPrices()
-            if (!await tradeInfoAnalyzer.updateBalances()){
-                await delay(1300)
-                continue
-            }
+            var tradeInfoAnalyzer = new TradeInfoAnalyzer(this.tradebotOptions)
+            await tradeInfoAnalyzer.updateCoinPrices()
+
+            await delay(1300)
+            break
+            // if (!await tradeInfoAnalyzer.updateBalances()){
+            //     await delay(1300)
+            //     continue
+            // }
 
             let date = new Date().toLocaleString()
             let content = `${date} ${Coin} - ${this.buyAccount}: ${this.buyAccount.tradeCoin.coinPrice.askPrice} * 

@@ -1,33 +1,45 @@
+import * as ccxt from 'ccxt'
+import { supportedTradingPlatforms } from "./supportedTradingPlatforms";
+
 export class TradeAccount {
-    constructor() {
+    constructor(tradingPlatform, coin) {
         this.currentAskPrice = 0.0
         this.currentBidPrice = 0.0
         this.currentBidQty = 0.0
         this.currentAskQty = 0.0
         this.tradingFee = 0.0
-        this.bitcoin = new Coin()
-        this.tradecoin = new Coin()
+        this.bitcoin = new Coin('BTC')
+        this.tradecoin = new Coin(coin)
+        this.tradingPlatform = new tradingPlatform()
+        console.log(`Create account of ${this.tradingPlatform.id}`)
     }
 
-    updatePrices() {
+    async updatePrices() {
+        var tradingPlatform = new ccxt.binance()
+        let result = await tradingPlatform.fetchTicker(`${this.tradecoin.token}/BTC`)
+        this.currentAskPrice = result.ask
+        this.currentAskQty = result.askVolume
+        this.currentBidPrice = result.bid
+        this.currentBidQty = result.bidVolume
+        console.log(`${tradingPlatform.id} - bid: ${this.currentBidPrice}, ask: ${this.currentAskPrice}`)
     }
 
-    updateBlances() {
+    async updateBlances() {
     }
 
-    buy() {
+    async buy() {
 
     }
-    sell() {
+    async sell() {
 
     }
-    isOrderMatched() {
+    async isOrderMatched() {
 
     }
 }
 
 class Coin {
-    constructor() {
+    constructor(token) {
         this.token = token
         this.balance = 0.0
         this.transferFee = 0.0
