@@ -15,13 +15,12 @@ export class TradeAccount {
     }
 
     async updatePrices() {
-        var tradingPlatform = new ccxt.binance()
-        let result = await tradingPlatform.fetchTicker(`${this.tradecoin.token}/BTC`)
+        let result = await this.tradingPlatform.fetchTicker(`${this.tradecoin.token}/BTC`)
         this.currentAskPrice = result.ask
         this.currentAskQty = result.askVolume
         this.currentBidPrice = result.bid
         this.currentBidQty = result.bidVolume
-        console.log(`${tradingPlatform.id} - bid: ${this.currentBidPrice}, ask: ${this.currentAskPrice}`)
+        console.log(`${this.tradingPlatform.id} - bid: ${this.currentBidPrice}, ask: ${this.currentAskPrice}`)
     }
 
     async updateBlances() {

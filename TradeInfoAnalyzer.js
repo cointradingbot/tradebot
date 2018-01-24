@@ -25,7 +25,7 @@ export class TradeInfoAnalyzer {
     }
 
     analyzeFlow() {
-        let accHasMaxBidPrice = _.first(_.sortBy(this.tradeAccounts, ['currentBidPrice']))
+        let accHasMaxBidPrice = _.last(_.sortBy(this.tradeAccounts, ['currentBidPrice']))
         console.log(accHasMaxBidPrice.currentBidPrice)
     }
 
