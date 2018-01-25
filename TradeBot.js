@@ -3,8 +3,6 @@ import { TradeInfoAnalyzer } from './TradeInfoAnalyzer'
 
 export class TradeBot {
     constructor(tradebotOptions) {
-        this.buyAccount = null
-        this.sellAccount = null
         this.isAutoTrading = false
         this.testMode = true
         this.tradebotOptions = tradebotOptions
@@ -15,29 +13,32 @@ export class TradeBot {
     async execute() {
         const delay = time => new Promise(res => setTimeout(() => res(), time));
         while (true) {
-            var tradeInfoAnalyzer = new TradeInfoAnalyzer(this.tradebotOptions)
+            let tradeInfoAnalyzer = new TradeInfoAnalyzer(this.tradebotOptions)
             await tradeInfoAnalyzer.updateCoinPrices()
-
-            await delay(1300)
-            break
-            // if (!await tradeInfoAnalyzer.updateBalances()){
-            //     await delay(1300)
-            //     continue
-            // }
+            let tradeInfo = tradeInfoAnalyzer.analyzeFixedMode(1000, 0.00000002)
 
             let date = new Date().toLocaleString()
-            let content = `${date} ${Coin} - ${this.buyAccount}: ${this.buyAccount.tradeCoin.coinPrice.askPrice} * 
-                ${this.SellAccount.GetType().Name}: ${this.SellAccount.TradeCoin.CoinPrice.BidPrice} *
-                B-A: ${this.tradeInfo.deltaBidAsk} *
-                BTC Profit: ${Math.Round(tradeInfo.BitcoinProfit, 6)} *
-                Coin Qt.: ${Math.Round(tradeInfo.CoinQuantityAtSell)} *
-                BTC Qt.: ${Math.Round(tradeInfo.BitcoinQuantityAtBuy, 4)}`
+            let content =
+                `${date} - ${this.coin} - ${this.buyAccount.tradingPlatform.id}: ${this.buyAccount.currentAskPrice.toFixed(8)} - ` +
+                `${this.sellAccount.tradingPlatform.id}: ${this.sellAccount.currentBidPrice.toFixed(8)} - ` +
+                `B-A: ${tradeInfo.deltaBidAsk.toFixed(8)} - ` +
+                `BTC Profit: ${tradeInfo.bitcoinProfit.toFixed(8)} - ` +
+                `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`
 
             console.log(content)
 
-            console.log("hehehe")
-
             await delay(1300)
         }
+    }
+
+    // getters
+    get coin() {
+        return this.tradebotOptions.coin
+    }
+    get buyAccount() {
+        return this.tradebotOptions.buyAccount
+    }
+    get sellAccount() {
+        return this.tradebotOptions.sellAccount
     }
 }

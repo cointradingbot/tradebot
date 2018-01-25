@@ -7,10 +7,10 @@ export class TradeAccount {
         this.currentBidPrice = 0.0
         this.currentBidQty = 0.0
         this.currentAskQty = 0.0
-        this.tradingFee = 0.0
         this.bitcoin = new Coin('BTC')
         this.tradecoin = new Coin(coin)
         this.tradingPlatform = new tradingPlatform()
+        this.metaInfo = this.tradingPlatform.describe()
         console.log(`Create account of ${this.tradingPlatform.id}`)
     }
 
@@ -20,7 +20,6 @@ export class TradeAccount {
         this.currentAskQty = result.askVolume
         this.currentBidPrice = result.bid
         this.currentBidQty = result.bidVolume
-        console.log(`${this.tradingPlatform.id} - bid: ${this.currentBidPrice}, ask: ${this.currentAskPrice}`)
     }
 
     async updateBlances() {
@@ -35,6 +34,11 @@ export class TradeAccount {
     async isOrderMatched() {
 
     }
+
+    // Getters
+    get tradingFee(){
+        return this.metaInfo.fees.trading.maker
+    }
 }
 
 class Coin {
@@ -42,17 +46,5 @@ class Coin {
         this.token = token
         this.balance = 0.0
         this.transferFee = 0.0
-        this.coinPrice = new CoinPrice()
-    }
-}
-
-class CoinPrice {
-    constructor() {
-        this.lastPrice = 0.0
-        this.bidPrice = 0.0
-        this.bidQuantity = 0.0
-        this.askPrice = 0.0
-        this.askQuantity = 0.0
-        this.retrievalTime = null
     }
 }
