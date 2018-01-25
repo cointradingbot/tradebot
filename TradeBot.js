@@ -11,23 +11,32 @@ export class TradeBot {
     }
 
     async execute() {
+
         const delay = time => new Promise(res => setTimeout(() => res(), time));
         while (true) {
-            let tradeInfoAnalyzer = new TradeInfoAnalyzer(this.tradebotOptions)
-            await tradeInfoAnalyzer.updateCoinPrices()
-            let tradeInfo = tradeInfoAnalyzer.analyzeFixedMode(1000, 0.00000002)
+            try {
+                let tradeInfoAnalyzer = new TradeInfoAnalyzer(this.tradebotOptions)
+                await tradeInfoAnalyzer.updateCoinPrices()
+                let tradeInfo = tradeInfoAnalyzer.analyzeFixedMode(
+                    this.tradebotOptions.fixedQuantity, 
+                    this.tradebotOptions.plusPointToWin)
 
-            let date = new Date().toLocaleString()
-            let content =
-                `${date} - ${this.coin} - ${this.buyAccount.tradingPlatform.id}: ${this.buyAccount.currentAskPrice.toFixed(8)} - ` +
-                `${this.sellAccount.tradingPlatform.id}: ${this.sellAccount.currentBidPrice.toFixed(8)} - ` +
-                `B-A: ${tradeInfo.deltaBidAsk.toFixed(8)} - ` +
-                `BTC Profit: ${tradeInfo.bitcoinProfit.toFixed(8)} - ` +
-                `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`
+                let date = new Date().toLocaleString()
+                let content =
+                    `${date} - ${this.coin} - ${this.buyAccount.tradingPlatform.id}: ${this.buyAccount.currentAskPrice.toFixed(8)} - ` +
+                    `${this.sellAccount.tradingPlatform.id}: ${this.sellAccount.currentBidPrice.toFixed(8)} - ` +
+                    `B-A: ${tradeInfo.deltaBidAsk.toFixed(8)} - ` +
+                    `BTC Profit: ${tradeInfo.bitcoinProfit.toFixed(8)} - ` +
+                    `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`
 
-            console.log(content)
+                console.log(content)
 
-            await delay(1300)
+                await delay(1300)
+            }
+            catch (err) {
+                console.log(err)
+                await delay(1300)
+            }
         }
     }
 

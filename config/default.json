@@ -1,0 +1,28 @@
+{
+    "Email": {
+        "ApiKey": "APIKEY",
+        "EmailTo": "EMAIL_TO",
+        "ToName": "TO_NAME",
+        "EmailFrom": "EMAIL_FROM",
+        "FromName": "FROM_NAME"
+    },
+    "ExpectedDelta": "0.00000100",
+    "BinanceAccount": {
+        "BitcoinTransferFee": 0.0005,
+        "TradingFee": 0.1,
+        "API_KEY": "API_KEY",
+        "API_SECRET": "API_SECRET"
+    },
+    "BittrexAccount": {
+        "BitcoinTransferFee": 0.0005,
+        "TradingFee": 0.25,
+        "API_KEY": "API_KEY",
+        "API_SECRET": "API_SECRET"
+    },
+    "IsAutoTrading": false,
+    "TradeFlow": "AutoSwitch",
+    "Coin": "XLM",
+    "PlusPointToWin": "0.00000003",
+    "TestMode": false,
+    "FixedQuantity": 1000
+}
