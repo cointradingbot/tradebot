@@ -25,18 +25,20 @@ export class TradeAccount {
     async updateBlances() {
     }
 
-    async buy() {
-
+    async buy(coinQuantityAtBuy, buyPrice) {
+        await this.tradingPlatform.createOrder('BTC/ADA', 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
     }
-    async sell() {
 
+    async sell(coinQuantityAtSell, sellPrice) {
+        await this.tradingPlatform.createOrder('BTC/ADA', 'limit', 'sell', coinQuantityAtSell, sellPrice, {})
     }
+
     async isOrderMatched() {
 
     }
 
     // Getters
-    get tradingFee(){
+    get tradingFee() {
         return this.metaInfo.fees.trading.maker
     }
 }
