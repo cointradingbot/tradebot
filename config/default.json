@@ -24,5 +24,63 @@
     "Coin": "XLM",
     "PlusPointToWin": "0.00000003",
     "TestMode": false,
-    "FixedQuantity": 1000
+    "FixedQuantity": 1000,
+    "TradingPlatforms": [
+        {
+            "Name": "bittrex",
+            "BitcoinTransferFee": 0.0005,
+            "TradingFee": 0.25,
+            "API_KEY": "",
+            "API_SECRET": ""
+        },
+        {
+            "Name": "cryptopia",
+            "BitcoinTransferFee": 0.0005,
+            "TradingFee": 0.2,
+            "API_KEY": "",
+            "API_SECRET": ""
+        },
+        {
+            "Name": "hitbtc",
+            "BitcoinTransferFee": 0.0005,
+            "TradingFee": 0.2,
+            "API_KEY": "",
+            "API_SECRET": ""
+        },
+        {
+            "Name": "gateio",
+            "BitcoinTransferFee": 0.0005,
+            "TradingFee": 0.1,
+            "API_KEY": "",
+            "API_SECRET": ""
+        },
+        {
+            "Name": "liqui",
+            "BitcoinTransferFee": 0.0005,
+            "TradingFee": 0.25,
+            "API_KEY": "",
+            "API_SECRET": ""
+        },
+        {
+            "Name": "coinegg",
+            "BitcoinTransferFee": 0.0005,
+            "TradingFee": 0.25,
+            "API_KEY": "",
+            "API_SECRET": ""
+        },
+        {
+            "Name": "gatecoin",
+            "BitcoinTransferFee": 0.0005,
+            "TradingFee": 0.14,
+            "API_KEY": "",
+            "API_SECRET": ""
+        },
+        {
+            "Name": "okex",
+            "BitcoinTransferFee": 0.0005,
+            "TradingFee": 0.1,
+            "API_KEY": "",
+            "API_SECRET": ""
+        }
+    ]
 }

@@ -12,7 +12,9 @@ const supportedTradingPlatforms = {
     'bitstamp': ccxt.bitstamp1,
     'bitmex': ccxt.bitmex,
     'cryptopia': ccxt.cryptopia,
-    'liqui': ccxt.liqui
+    'liqui': ccxt.liqui,
+    'gatecoin': ccxt.gatecoin,
+    'okex': ccxt.okex
 }
 
 export { supportedTradingPlatforms }

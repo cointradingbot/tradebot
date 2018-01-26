@@ -9,14 +9,13 @@ export class TradeAccount {
         this.currentAskQty = 0.0
         this.bitcoin = new Coin('BTC')
         this.tradecoin = new Coin(coin)
-        console.log(tradingPlatform.Name)
-        console.log(supportedTradingPlatforms[tradingPlatform.Name])
+        this.tradingFee = tradingPlatform.TradingFee
 
         this.tradingPlatform = new supportedTradingPlatforms[tradingPlatform.Name]({
             apiKey: tradingPlatform.API_KEY,
             secret: tradingPlatform.API_SECRET
         })
-        
+
         this.metaInfo = this.tradingPlatform.describe()
         console.log(`Create account of ${this.tradingPlatform.id}`)
     }
@@ -42,11 +41,6 @@ export class TradeAccount {
 
     async isOrderMatched() {
 
-    }
-
-    // Getters
-    get tradingFee() {
-        return this.metaInfo.fees.trading.maker
     }
 }
 
