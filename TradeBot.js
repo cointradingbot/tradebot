@@ -4,8 +4,6 @@ import { AutoTrader } from './AutoTrader'
 
 export class TradeBot {
     constructor(tradebotOptions) {
-        this.isAutoTrading = false
-        this.testMode = true
         this.tradebotOptions = tradebotOptions
 
         console.log('TradeBot initialized...')
@@ -31,18 +29,24 @@ export class TradeBot {
 
                 console.log(content)
 
-                if (this.tradebotOptions.isAutoTrading) {
-                    // TODO: check tradable here
-                    
-                    let trader = new AutoTrader(true, tradeInfo)
-                    trader.trade()
+                if (this.tradebotOptions.isAutoTrading && tradeInfo.deltaBidAsk >= this.tradebotOptions.expectedDelta) {
+                    console.log('auto trading ...')
+                    let trader = new AutoTrader(
+                        this.tradebotOptions.inTestMode, 
+                        this.tradebotOptions.sellAccount,
+                        this.tradebotOptions.buyAccount,
+                        tradeInfo)
+
+                    await trader.trade()
                 }
 
                 await delay(1300)
+                break
             }
             catch (err) {
                 console.log(err)
                 await delay(1300)
+                break
             }
         }
     }

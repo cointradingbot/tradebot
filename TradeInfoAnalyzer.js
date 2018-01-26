@@ -24,10 +24,9 @@ export class TradeInfoAnalyzer {
         var accHasMaxBidPrice = _.last(_.sortBy(this.tradeAccounts, ['currentBidPrice']))
         var accHasMinAskPrice = _.first(_.sortBy(this.tradeAccounts, ['currentAskPrice']))
 
-        if (accHasMaxBidPrice !== accHasMinAskPrice) {
-            this.tradebotOptions.sellAccount = accHasMaxBidPrice
-            this.tradebotOptions.buyAccount = accHasMinAskPrice
-        }
+        this.tradebotOptions.sellAccount = accHasMaxBidPrice
+        this.tradebotOptions.buyAccount = accHasMinAskPrice
+
     }
 
     analyzeFixedMode(quantity, plusPointToWin) {
@@ -54,14 +53,10 @@ export class TradeInfoAnalyzer {
         tradeInfo.coinQuantityAtBuy = coinQtyAtBuy
         tradeInfo.coinProfit = 0
         tradeInfo.bitcoinProfit = bitcoinQuantityAtSell - bitcoinQuantityAtBuy
-        tradeInfo.sellAccount = sellPrice
+        tradeInfo.sellPrice = sellPrice
         tradeInfo.buyPrice = buyPrice
 
         return tradeInfo;
-    }
-
-    async updateBalances() {
-        console.log('Update balances')
     }
 
     // Getters

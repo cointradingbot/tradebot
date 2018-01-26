@@ -13,6 +13,10 @@ var tradeBotOptions = new TradeBotOptions()
 tradeBotOptions.coin = config['Coin']
 tradeBotOptions.expectedDelta = config['ExpectedDelta']
 tradeBotOptions.fixedQuantity = config['FixedQuantity']
+tradeBotOptions.isAutoTrading = config['IsAutoTrading']
+tradeBotOptions.inTestMode = config['TestMode']
+tradeBotOptions.expectedDelta = config['ExpectedDelta']
+
 
 var tradingPlatforms = config['TradingPlatforms']
 

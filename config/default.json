@@ -19,11 +19,10 @@
         "API_KEY": "API_KEY",
         "API_SECRET": "API_SECRET"
     },
-    "IsAutoTrading": false,
-    "TradeFlow": "AutoSwitch",
+    "IsAutoTrading": true,
     "Coin": "XLM",
     "PlusPointToWin": "0.00000003",
-    "TestMode": false,
+    "TestMode": true,
     "FixedQuantity": 1000,
     "TradingPlatforms": [
         {

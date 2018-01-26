@@ -28,15 +28,21 @@ export class TradeAccount {
         this.currentBidQty = result.bidVolume
     }
 
-    async updateBlances() {
+    async updateBalances() {
+        console.log('updating balances ...')
+        let balance = await this.tradingPlatform.fetchBalance()
+        this.bitcoin.balance = balance[this.bitcoin.token]
+        this.tradecoin.balance = balance[this.tradecoin.token]
     }
 
     async buy(coinQuantityAtBuy, buyPrice) {
-        await this.tradingPlatform.createOrder('BTC/ADA', 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
+        await this.tradingPlatform.createOrder(
+            `${this.tradecoin.token}/${this.bitcoin.token}`, 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
     }
 
     async sell(coinQuantityAtSell, sellPrice) {
-        await this.tradingPlatform.createOrder('BTC/ADA', 'limit', 'sell', coinQuantityAtSell, sellPrice, {})
+        await this.tradingPlatform.createOrder(
+            `${this.tradecoin.token}/${this.bitcoin.token}`, 'limit', 'sell', coinQuantityAtSell, sellPrice, {})
     }
 
     async isOrderMatched() {
