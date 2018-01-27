@@ -1,8 +1,8 @@
-import { TradeBotOptions } from './TradeBotOptions'
-import { TradeInfo } from './TradeInfo'
 import * as ccxt from 'ccxt'
 import { bittrex } from 'ccxt';
 import _ from 'lodash'
+import { TradeBotOptions } from './TradeBotOptions'
+import { TradeInfo } from './TradeInfo'
 
 export class TradeInfoAnalyzer {
     constructor(tradebotOptions) {

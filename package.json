@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "babel-node": "babel-node --presets=latest",
-    "start": "nodemon --exec npm run babel-node -- ./index.js",
-    "build": "babel ./ -d dist"
+    "babel-node": "babel-node --presets=latest ./src/index.js",
+    "start": "nodemon --exec npm run babel-node -- ./src/index.js",
+    "build": "babel ./src -d ./dist"
   },
   "author": "Phi Huynh",
   "license": "MIT",
