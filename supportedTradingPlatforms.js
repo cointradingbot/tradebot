@@ -15,7 +15,9 @@ const supportedTradingPlatforms = {
     'liqui': ccxt.liqui,
     'gatecoin': ccxt.gatecoin,
     'okex': ccxt.okex,
-    'huobi': ccxt.huobi
+    'huobi': ccxt.huobi,
+    'poloniex': ccxt.poloniex,
+    'bitfinex': ccxt.bitfinex
 }
 
 export { supportedTradingPlatforms }

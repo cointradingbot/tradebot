@@ -61,13 +61,6 @@
             "API_SECRET": ""
         },
         {
-            "Name": "coinegg",
-            "BitcoinTransferFee": 0.0005,
-            "TradingFee": 0.25,
-            "API_KEY": "",
-            "API_SECRET": ""
-        },
-        {
             "Name": "gatecoin",
             "BitcoinTransferFee": 0.0005,
             "TradingFee": 0.14,
