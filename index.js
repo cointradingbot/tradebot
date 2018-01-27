@@ -10,19 +10,24 @@ import { TradeAccount } from './TradeAccount';
 
 // Initialize the bot options
 var tradeBotOptions = new TradeBotOptions()
-tradeBotOptions.coin = config['Coin']
+tradeBotOptions.tradeCoin = config['TradeCoin']
+tradeBotOptions.baseCoin = config['TradeCoin']
 tradeBotOptions.expectedDelta = config['ExpectedDelta']
 tradeBotOptions.fixedQuantity = config['FixedQuantity']
 tradeBotOptions.isAutoTrading = config['IsAutoTrading']
 tradeBotOptions.inTestMode = config['TestMode']
 tradeBotOptions.expectedDelta = config['ExpectedDelta']
 
+console.log(tradeBotOptions.tradeCoin)
 
 var tradingPlatforms = config['TradingPlatforms']
 
 tradingPlatforms.forEach((tradingPlatform) => {
     console.log(`Adding ${tradingPlatform.Name}`)
-    tradeBotOptions.tradeAccounts.push(new TradeAccount(tradingPlatform, tradeBotOptions.coin))
+    tradeBotOptions.tradeAccounts.push(new TradeAccount(
+        tradingPlatform, 
+        tradeBotOptions.tradeCoin,
+        tradeBotOptions.baseCoin))
 })
 
 // Initialize the bot

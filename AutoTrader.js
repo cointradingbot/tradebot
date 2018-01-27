@@ -17,9 +17,9 @@ export class AutoTrader {
         ])
 
         console.log('finished updated balances ...')
-        if ((this.tradeInfo.bitcoinQuantityAtBuy >= this.buyAccount.bitcoin.balance) ||
+        if ((this.tradeInfo.baseCoinQuantityAtBuy >= this.buyAccount.baseCoin.balance) ||
             (this.tradable.profit <= 0) ||
-            (this.sellAccount.tradecoin.balance <= 0.01000000 / this.tradeInfo.sellPrice)) {
+            (this.sellAccount.tradeCoin.balance <= 0.01000000 / this.tradeInfo.sellPrice)) {
             okToTrade = false
         }
         return okToTrade

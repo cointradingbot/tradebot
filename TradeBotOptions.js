@@ -1,12 +1,13 @@
 export class TradeBotOptions {
     constructor() {
-        this.bitcoinTradingAmount = 0.0
+        this.baseCoinTradingAmount = 0.0
         this.resumeAfterExpectedDelta = 0
         this.expectedDelta = 0.0
         this.emailTo = ''
         this.isAutoTrading = false
         this.mailApiKey = ''
-        this.coin = ''
+        this.tradeCoin = ''
+        this.baseCoin = ''
         this.tradeFlow = null
         this.buyAccount = null
         this.sellAccount = null

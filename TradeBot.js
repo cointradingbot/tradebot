@@ -21,10 +21,10 @@ export class TradeBot {
 
                 let date = new Date().toLocaleString()
                 let content =
-                    `${date} - ${this.coin} - ${this.buyAccount.tradingPlatform.id}: ${this.buyAccount.currentAskPrice.toFixed(8)} - ` +
+                    `${date} - ${this.tradeCoin} - ${this.buyAccount.tradingPlatform.id}: ${this.buyAccount.currentAskPrice.toFixed(8)} - ` +
                     `${this.sellAccount.tradingPlatform.id}: ${this.sellAccount.currentBidPrice.toFixed(8)} - ` +
                     `B-A: ${tradeInfo.deltaBidAsk.toFixed(8)} - ` +
-                    `BTC Profit: ${tradeInfo.bitcoinProfit.toFixed(8)} - ` +
+                    `BTC Profit: ${tradeInfo.baseCoinProfit.toFixed(8)} - ` +
                     `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`
 
                 console.log(content)
@@ -41,19 +41,25 @@ export class TradeBot {
                 }
 
                 await delay(1300)
-                break
+                this.quitInTestMode()
             }
             catch (err) {
                 console.log(err)
                 await delay(1300)
-                break
+                this.quitInTestMode()
             }
         }
     }
 
+    quitInTestMode(){
+        if(this.tradebotOptions.inTestMode){
+            return
+        }
+    }
+
     // getters
-    get coin() {
-        return this.tradebotOptions.coin
+    get tradeCoin() {
+        return this.tradebotOptions.tradeCoin
     }
     get buyAccount() {
         return this.tradebotOptions.buyAccount

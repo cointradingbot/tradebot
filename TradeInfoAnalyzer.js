@@ -47,12 +47,12 @@ export class TradeInfoAnalyzer {
         var tradeInfo = new TradeInfo()
         tradeInfo.deltaBidAsk = deltaBidAsk
         tradeInfo.deltaBidBid = deltaBidBid
-        tradeInfo.BitcoinQuantityAtSell = bitcoinQuantityAtSell
+        tradeInfo.baseCoinQuantityAtSell = bitcoinQuantityAtSell
         tradeInfo.coinQuantityAtSell = coinQtyAtSell
-        tradeInfo.bitcoinQuantityAtBuy = bitcoinQuantityAtBuy
+        tradeInfo.baseCoinQuantityAtBuy = bitcoinQuantityAtBuy
         tradeInfo.coinQuantityAtBuy = coinQtyAtBuy
         tradeInfo.coinProfit = 0
-        tradeInfo.bitcoinProfit = bitcoinQuantityAtSell - bitcoinQuantityAtBuy
+        tradeInfo.baseCoinProfit = bitcoinQuantityAtSell - bitcoinQuantityAtBuy
         tradeInfo.sellPrice = sellPrice
         tradeInfo.buyPrice = buyPrice
 

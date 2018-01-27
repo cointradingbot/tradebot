@@ -2,13 +2,13 @@ import * as ccxt from 'ccxt'
 import { supportedTradingPlatforms } from "./supportedTradingPlatforms";
 
 export class TradeAccount {
-    constructor(tradingPlatform, coin) {
+    constructor(tradingPlatform, tradeCoin, baseCoin) {
         this.currentAskPrice = 0.0
         this.currentBidPrice = 0.0
         this.currentBidQty = 0.0
         this.currentAskQty = 0.0
-        this.bitcoin = new Coin('BTC')
-        this.tradecoin = new Coin(coin)
+        this.baseCoin = new Coin(baseCoin)
+        this.tradeCoin = new Coin(tradeCoin)
         this.tradingFee = tradingPlatform.TradingFee
 
         this.tradingPlatform = new supportedTradingPlatforms[tradingPlatform.Name]({
@@ -21,7 +21,7 @@ export class TradeAccount {
     }
 
     async updatePrices() {
-        let result = await this.tradingPlatform.fetchTicker(`${this.tradecoin.token}/BTC`)
+        let result = await this.tradingPlatform.fetchTicker(`${this.tradeCoin.token}/BTC`)
         this.currentAskPrice = result.ask
         this.currentAskQty = result.askVolume
         this.currentBidPrice = result.bid
@@ -31,18 +31,18 @@ export class TradeAccount {
     async updateBalances() {
         console.log('updating balances ...')
         let balance = await this.tradingPlatform.fetchBalance()
-        this.bitcoin.balance = balance[this.bitcoin.token]
-        this.tradecoin.balance = balance[this.tradecoin.token]
+        this.baseCoin.balance = balance[this.baseCoin.token]
+        this.tradecoin.balance = balance[this.tradeCoin.token]
     }
 
     async buy(coinQuantityAtBuy, buyPrice) {
         await this.tradingPlatform.createOrder(
-            `${this.tradecoin.token}/${this.bitcoin.token}`, 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
+            `${this.tradeCoin.token}/${this.baseCoin.token}`, 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
     }
 
     async sell(coinQuantityAtSell, sellPrice) {
         await this.tradingPlatform.createOrder(
-            `${this.tradecoin.token}/${this.bitcoin.token}`, 'limit', 'sell', coinQuantityAtSell, sellPrice, {})
+            `${this.tradeCoin.token}/${this.baseCoin.token}`, 'limit', 'sell', coinQuantityAtSell, sellPrice, {})
     }
 
     async isOrderMatched() {
