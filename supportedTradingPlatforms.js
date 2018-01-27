@@ -14,7 +14,8 @@ const supportedTradingPlatforms = {
     'cryptopia': ccxt.cryptopia,
     'liqui': ccxt.liqui,
     'gatecoin': ccxt.gatecoin,
-    'okex': ccxt.okex
+    'okex': ccxt.okex,
+    'huobi': ccxt.huobi
 }
 
 export { supportedTradingPlatforms }
