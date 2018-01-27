@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import * as ccxt from 'ccxt'
 import { bittrex } from 'ccxt';
 import _ from 'lodash'
