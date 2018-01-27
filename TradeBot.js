@@ -6,7 +6,7 @@ import { emailHelper } from './helper/EmailHelper'
 export class TradeBot {
     constructor(tradebotOptions) {
         this.tradebotOptions = tradebotOptions
-
+        this.timeLeftToSendEmail = 0
         console.log('TradeBot initialized...')
     }
 
@@ -39,9 +39,13 @@ export class TradeBot {
                         tradeInfo)
 
                     await trader.trade()
-                    emailHelper.sendEmail(content, content)
                 }
 
+                if (tradeInfo.deltaBidAsk >= this.tradebotOptions.expectedDelta) {
+                    this.sendEmailIfTimePassed(content, content)
+                }
+
+                this.timeLeftToSendEmail -= 2
                 await delay(1300)
                 this.quitInTestMode()
             }
@@ -50,6 +54,13 @@ export class TradeBot {
                 await delay(1300)
                 this.quitInTestMode()
             }
+        }
+    }
+
+    sendEmailIfTimePassed(subject, content) {
+        if (this.timeLeftToSendEmail <= 0){
+            emailHelper.sendEmail(subject, content)
+            this.timeLeftToSendEmail = 450
         }
     }
 
