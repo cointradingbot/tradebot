@@ -12,6 +12,7 @@
   "author": "Phi Huynh",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^6.2.1",
     "ccxt": "^1.10.810",
     "config": "^1.29.2",
     "dotenv": "^4.0.0",

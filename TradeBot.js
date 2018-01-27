@@ -1,6 +1,7 @@
 import { TradeBotOptions } from './TradeBotOptions'
 import { TradeInfoAnalyzer } from './TradeInfoAnalyzer'
 import { AutoTrader } from './AutoTrader'
+import { emailHelper } from './helper/EmailHelper'
 
 export class TradeBot {
     constructor(tradebotOptions) {
@@ -32,12 +33,13 @@ export class TradeBot {
                 if (this.tradebotOptions.isAutoTrading && tradeInfo.deltaBidAsk >= this.tradebotOptions.expectedDelta) {
                     console.log('auto trading ...')
                     let trader = new AutoTrader(
-                        this.tradebotOptions.inTestMode, 
+                        this.tradebotOptions.inTestMode,
                         this.tradebotOptions.sellAccount,
                         this.tradebotOptions.buyAccount,
                         tradeInfo)
 
                     await trader.trade()
+                    emailHelper.sendEmail(content, content)
                 }
 
                 await delay(1300)
@@ -51,8 +53,8 @@ export class TradeBot {
         }
     }
 
-    quitInTestMode(){
-        if(this.tradebotOptions.inTestMode){
+    quitInTestMode() {
+        if (this.tradebotOptions.inTestMode) {
             return
         }
     }

@@ -7,6 +7,7 @@ import * as ccxt from 'ccxt'
 import { TradeBotOptions } from './TradeBotOptions'
 import { TradeBot } from './TradeBot'
 import { TradeAccount } from './TradeAccount';
+import { emailHelper } from './helper/EmailHelper';
 
 // Initialize the bot options
 var tradeBotOptions = new TradeBotOptions()
@@ -17,8 +18,6 @@ tradeBotOptions.fixedQuantity = config['FixedQuantity']
 tradeBotOptions.isAutoTrading = config['IsAutoTrading']
 tradeBotOptions.inTestMode = config['TestMode']
 tradeBotOptions.expectedDelta = config['ExpectedDelta']
-
-console.log(tradeBotOptions.tradeCoin)
 
 var tradingPlatforms = config['TradingPlatforms']
 
