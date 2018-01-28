@@ -4,9 +4,10 @@ import { AutoTrader } from './AutoTrader'
 import { emailHelper } from './helper/EmailHelper'
 
 export class TradeBot {
-    constructor(tradebotOptions) {
+    constructor(tradebotOptions, io) {
         this.tradebotOptions = tradebotOptions
         this.timeLeftToSendEmail = 0
+        this.io = io
         console.log('TradeBot initialized...')
     }
 
@@ -29,6 +30,7 @@ export class TradeBot {
                     `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`
 
                 console.log(content)
+                this.io.emit('price', content);
 
                 if (this.tradebotOptions.isAutoTrading && tradeInfo.deltaBidAsk >= this.tradebotOptions.expectedDelta) {
                     console.log('auto trading ...')
