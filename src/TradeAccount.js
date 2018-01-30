@@ -21,7 +21,7 @@ export class TradeAccount {
     }
 
     async updatePrices() {
-        let result = await this.tradingPlatform.fetchTicker(`${this.tradeCoin.token}/BTC`)
+        let result = await this.tradingPlatform.fetchTicker(`${this.tradeCoin.token}/${this.baseCoin.token}`)
         this.currentAskPrice = result.ask
         this.currentAskQty = result.askVolume
         this.currentBidPrice = result.bid

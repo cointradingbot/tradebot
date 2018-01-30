@@ -25,7 +25,7 @@ export class BotService {
         // Initialize the bot options
         var tradeBotOptions = new TradeBotOptions()
         tradeBotOptions.tradeCoin = config['TradeCoin']
-        tradeBotOptions.baseCoin = config['TradeCoin']
+        tradeBotOptions.baseCoin = config['BaseCoin']
         tradeBotOptions.expectedDelta = config['ExpectedDelta']
         tradeBotOptions.fixedQuantity = config['FixedQuantity']
         tradeBotOptions.isAutoTrading = config['IsAutoTrading']
