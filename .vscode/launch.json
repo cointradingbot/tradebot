@@ -7,31 +7,16 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "nodemon2",
-            "runtimeExecutable": "nodemon",
-            "program": "${workspaceFolder}/index.js",
-            "restart": true,
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
-        },
-        {
-            "type": "node",
-            "request": "launch",
+            "protocol": "inspector",
             "name": "nodemon",
+            "preLaunchTask": "build",
             "runtimeExecutable": "nodemon",
-            "runtimeArgs": [
-                "--exec", 
-                "npm", 
-                "run", 
-                "babel-node", 
-                "--",
-                "--debug=5858"
-            ],
-            "program": "${workspaceFolder}/index.js",
+            "program": "${workspaceFolder}/dist/index.js",
+            "localRoot": "${workspaceFolder}/src",
             "restart": true,
-            "port": 5858,
             "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
+            "internalConsoleOptions": "neverOpen",
+            "sourceMaps": true
         }
     ]
 }

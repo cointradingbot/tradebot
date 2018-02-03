@@ -6,7 +6,8 @@ export class TradeBotOptions {
         this.emailTo = ''
         this.isAutoTrading = false
         this.mailApiKey = ''
-        this.tradeCoin = ''
+        this.tradeCoins = []
+        this.currentTradeCoin = ''
         this.baseCoin = ''
         this.tradeFlow = null
         this.buyAccount = null

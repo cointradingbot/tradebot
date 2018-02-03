@@ -8,12 +8,12 @@ import { TradeInfo } from './TradeInfo'
 export class TradeInfoAnalyzer {
     constructor(tradebotOptions) {
         this.tradebotOptions = tradebotOptions
+        this.tradebotOptions.tradeAccounts.forEach(tradeAccount => {
+            tradeAccount.updateCurrentTradeCoin(this.tradebotOptions.currentTradeCoin)
+        })
     }
 
-
-
     async updateCoinPrices() {
-
         for (let i = 0; i < this.tradeAccounts.length; i++) {
             await this.tradeAccounts[i].updatePrices()
         }

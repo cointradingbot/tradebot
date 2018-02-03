@@ -3,7 +3,7 @@ var http = require('http').Server(app)
 var io = require('socket.io')(http);
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '../index.html');
 });
 
 io.on('connection', function (socket) {
@@ -21,6 +21,6 @@ http.listen(3000, function () {
     console.log('listening on *:3000');
 });
 
-const BotService = require('./src/BotService')
+const BotService = require('./BotService')
 
 new BotService.BotService(io).runTradeBot()
