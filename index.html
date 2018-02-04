@@ -40,6 +40,7 @@
             list-style-type: none;
             margin: 0;
             padding: 0;
+            padding-bottom: 20px;
         }
 
         #messages li {
@@ -65,6 +66,7 @@
             });
             socket.on('price', function (msg) {
                 $('#messages').append($('<li>').text(msg));
+                window.scroll({ top: 2500, left: 0, behavior: 'smooth' });
             });
         });
     </script>
