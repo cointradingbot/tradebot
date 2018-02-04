@@ -1,4 +1,6 @@
-import { TradeInfo } from './TradeInfo'
+import {
+    TradeInfo
+} from './TradeInfo'
 
 export class AutoTrader {
     constructor(testMode, sellAccount, buyAccount, tradeInfo) {
@@ -10,18 +12,22 @@ export class AutoTrader {
 
     async tradable() {
         let okToTrade = true
-
         await Promise.all([
             this.buyAccount.updateBalances(),
             this.sellAccount.updateBalances()
         ])
 
         console.log('finished updated balances ...')
-        if ((this.tradeInfo.baseCoinQuantityAtBuy >= this.buyAccount.baseCoin.balance) ||
-            (this.tradable.profit <= 0) ||
-            (this.sellAccount.currentTradeCoin.balance <= 0.01000000 / this.tradeInfo.sellPrice)) {
+        if (this.tradeInfo.baseCoinQuantityAtBuy >= this.buyAccount.baseCoin.balance.free) {
+            console.warn(`${this.buyAccount.tradingPlatform.name}: ${this.buyAccount.baseCoin.balance.free} ${this.buyAccount.baseCoin.token} is not enough to buy`)
+            okToTrade = false
+        } else if (this.tradeInfo.baseCoinProfit <= 0) {
+            console.warn(`Profit is too low: ${this.tradeInfo.baseCoinProfit.toFixed(8)}`)
+            okToTrade = false
+        } else if (this.sellAccount.currentTradeCoin.balance <= 0.01000000 / this.tradeInfo.sellPrice) {
             okToTrade = false
         }
+
         return okToTrade
     }
 
@@ -34,7 +40,7 @@ export class AutoTrader {
             this.tradeInfo.coinQuantityAtSell = 100
         }
 
-        if (this.tradable()) {
+        if (await this.tradable()) {
             await Promise.all([
                 this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice),
                 this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice)
