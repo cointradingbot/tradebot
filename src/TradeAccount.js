@@ -47,8 +47,8 @@ export class TradeAccount {
     async buy(coinQuantityAtBuy, buyPrice) {
         await this.tradingPlatform.createOrder(
             `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
-        
-        let content = `${this.tradingPlatform.name}: Buy ordered ${coinQuantityAtSell} ${this.baseCoin.token}, price: ${sellPrice.toFixed(8)}`
+
+        let content = `${this.tradingPlatform.name}: Buy ordered ${coinQuantityAtBuy} ${this.baseCoin.token}, price: ${buyPrice.toFixed(8)}`
         emailHelper.sendEmail(content, content)
     }
 
