@@ -69,11 +69,11 @@ export class TradeBot {
                     }
 
                     this.timeLeftToSendEmail -= 2
-                    await delay(1300)
+                    await delay(1000)
 
                 } catch (err) {
                     console.log(err)
-                    await delay(1300)
+                    await delay(1000)
                     this.quitInTestMode()
                 }
             }
