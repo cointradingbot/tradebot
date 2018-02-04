@@ -2,6 +2,9 @@ import * as ccxt from 'ccxt'
 import {
     supportedTradingPlatforms
 } from "./supportedTradingPlatforms";
+import {
+    emailHelper
+} from './helper/EmailHelper'
 
 export class TradeAccount {
     constructor(tradingPlatform, coin, baseCoin) {
@@ -22,7 +25,7 @@ export class TradeAccount {
         console.log(`Create account of ${this.tradingPlatform.id}`)
     }
 
-    updateCurrentTradeCoin(coin){
+    updateCurrentTradeCoin(coin) {
         this.currentTradeCoin = new Coin(coin)
     }
 
@@ -44,11 +47,17 @@ export class TradeAccount {
     async buy(coinQuantityAtBuy, buyPrice) {
         await this.tradingPlatform.createOrder(
             `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
+        
+        let content = `${this.tradingPlatform.name}: Buy ordered ${coinQuantityAtSell} ${this.baseCoin.token}, price: ${sellPrice.toFixed(8)}`
+        emailHelper.sendEmail(content, content)
     }
 
     async sell(coinQuantityAtSell, sellPrice) {
         await this.tradingPlatform.createOrder(
             `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'sell', coinQuantityAtSell, sellPrice, {})
+
+        let content = `${this.tradingPlatform.name}: Sell ordered ${coinQuantityAtSell} ${this.baseCoin.token}, price: ${sellPrice.toFixed(8)}`
+        emailHelper.sendEmail(content, content)
     }
 
     async isOrderMatched() {
