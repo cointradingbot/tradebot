@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "babel-node": "babel-node --presets=latest ./index.js",
-    "start": "nodemon --exec npm run babel-node -- ./index.js",
+    "babel-node": "babel-node --presets=latest ./src/index.js",
+    "start": "nodemon --exec npm run babel-node -- ./src/index.js",
     "node": "node ./dist/index.js",
     "build": "babel ./src -d ./dist --source-maps"
   },
