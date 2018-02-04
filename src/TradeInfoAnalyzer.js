@@ -9,7 +9,7 @@ export class TradeInfoAnalyzer {
     constructor(tradebotOptions) {
         this.tradebotOptions = tradebotOptions
         this.tradebotOptions.tradeAccounts.forEach(tradeAccount => {
-            tradeAccount.updateCurrentTradeCoin(this.tradebotOptions.currentTradeCoin)
+            tradeAccount.updateCurrentTradeCoin(this.tradebotOptions.currentTradeCoin.token)
         })
     }
 

@@ -1,15 +1,7 @@
-import {
-    TradeBotOptions
-} from './TradeBotOptions'
-import {
-    TradeInfoAnalyzer
-} from './TradeInfoAnalyzer'
-import {
-    AutoTrader
-} from './AutoTrader'
-import {
-    emailHelper
-} from './helper/EmailHelper'
+import TradeBotOptions from './TradeBotOptions'
+import { TradeInfoAnalyzer } from './TradeInfoAnalyzer'
+import AutoTrader from './AutoTrader'
+import emailHelper from './helper/EmailHelper'
 
 export class TradeBot {
     constructor(tradebotOptions, io) {
@@ -29,21 +21,21 @@ export class TradeBot {
                     let tradeInfoAnalyzer = new TradeInfoAnalyzer(this.tradebotOptions)
                     await tradeInfoAnalyzer.updateCoinPrices()
                     let tradeInfo = tradeInfoAnalyzer.analyzeFixedMode(
-                        this.tradebotOptions.fixedQuantity,
-                        this.tradebotOptions.plusPointToWin)
+                        this.currentTradeCoin.fixedQuantity,
+                        this.currentTradeCoin.plusPointToWin)
 
                     let date = new Date().toLocaleString()
                     let content =
-                        `${date} - ${this.currentTradeCoin} - ${this.buyAccount.tradingPlatform.id}: ${this.buyAccount.currentAskPrice.toFixed(8)} - ` +
+                        `${date} - ${this.currentTradeCoin.token} - ${this.buyAccount.tradingPlatform.id}: ${this.buyAccount.currentAskPrice.toFixed(8)} - ` +
                         `${this.sellAccount.tradingPlatform.id}: ${this.sellAccount.currentBidPrice.toFixed(8)} - ` +
                         `B-A: ${tradeInfo.deltaBidAsk.toFixed(8)} - ` +
                         `BTC Profit: ${tradeInfo.baseCoinProfit.toFixed(8)} - ` +
                         `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`
 
                     console.log(content)
-                    this.io.emit('price', content);
+                    this.io.emit('price', content)
 
-                    if (this.tradebotOptions.isAutoTrading && tradeInfo.deltaBidAsk >= this.tradebotOptions.expectedDelta) {
+                    if (this.tradebotOptions.isAutoTrading && tradeInfo.deltaBidAsk >= this.currentTradeCoin.expectedDelta) {
                         console.log('auto trading ...')
                         let trader = new AutoTrader(
                             this.tradebotOptions.inTestMode,
@@ -54,7 +46,7 @@ export class TradeBot {
                         await trader.trade()
                     }
 
-                    if (tradeInfo.deltaBidAsk >= this.tradebotOptions.expectedDelta) {
+                    if (tradeInfo.deltaBidAsk >= this.currentTradeCoin.expectedDelta) {
                         this.sendEmailIfTimePassed(content, content)
                     }
 

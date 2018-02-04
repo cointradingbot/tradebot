@@ -1,78 +1,46 @@
 {
-    "Email": {
-        "ApiKey": "APIKEY",
-        "EmailTo": "EMAIL_TO",
-        "ToName": "TO_NAME",
-        "EmailFrom": "EMAIL_FROM",
-        "FromName": "FROM_NAME"
+    "email": {
+        "apiKey": "APK_KEY",
+        "emailTo": "EMAIL_TO",
+        "toName": "TO_NAME",
+        "emailFrom": "EMAIL_FROM",
+        "fromName": "FROM_NAME"
     },
-    "ExpectedDelta": "0.00000100",
-    "BinanceAccount": {
-        "BitcoinTransferFee": 0.0005,
-        "TradingFee": 0.1,
-        "API_KEY": "API_KEY",
-        "API_SECRET": "API_SECRET"
-    },
-    "BittrexAccount": {
-        "BitcoinTransferFee": 0.0005,
-        "TradingFee": 0.25,
-        "API_KEY": "API_KEY",
-        "API_SECRET": "API_SECRET"
-    },
-    "IsAutoTrading": true,
-    "Coin": "XLM",
-    "PlusPointToWin": "0.00000003",
-    "TestMode": true,
-    "FixedQuantity": 1000,
-    "TradingPlatforms": [
+    "expectedDelta": "0.00000100",
+    "isAutoTrading": false,
+    "tradeFlow": "AutoSwitch",
+    "tradeCoins": [
         {
-            "Name": "bittrex",
-            "BitcoinTransferFee": 0.0005,
-            "TradingFee": 0.25,
-            "API_KEY": "",
-            "API_SECRET": ""
+            "token": "XVG",
+            "fixedQuantity": 1000,
+            "plusPointToWin": 0.00000002
         },
         {
-            "Name": "cryptopia",
-            "BitcoinTransferFee": 0.0005,
-            "TradingFee": 0.2,
-            "API_KEY": "",
-            "API_SECRET": ""
+            "token": "XVG",
+            "fixedQuantity": 1000,
+            "plusPointToWin": 0.00000002
         },
         {
-            "Name": "hitbtc",
-            "BitcoinTransferFee": 0.0005,
-            "TradingFee": 0.2,
-            "API_KEY": "",
-            "API_SECRET": ""
+            "token": "XVG",
+            "fixedQuantity": 1000,
+            "plusPointToWin": 0.00000002
+        }
+    ],
+    "baseCoin": "BTC",
+    "testMode": true,
+    "tradingPlatforms": [{
+            "name": "binance",
+            "bitcoinTransferFee": 0.0005,
+            "tradingFee": 0.1,
+            "api_key": "API_KEY",
+            "api_secret": "API_SECRET"
         },
         {
-            "Name": "gateio",
-            "BitcoinTransferFee": 0.0005,
-            "TradingFee": 0.1,
-            "API_KEY": "",
-            "API_SECRET": ""
-        },
-        {
-            "Name": "liqui",
-            "BitcoinTransferFee": 0.0005,
-            "TradingFee": 0.25,
-            "API_KEY": "",
-            "API_SECRET": ""
-        },
-        {
-            "Name": "gatecoin",
-            "BitcoinTransferFee": 0.0005,
-            "TradingFee": 0.14,
-            "API_KEY": "",
-            "API_SECRET": ""
-        },
-        {
-            "Name": "okex",
-            "BitcoinTransferFee": 0.0005,
-            "TradingFee": 0.1,
-            "API_KEY": "",
-            "API_SECRET": ""
+            "name": "bittrex",
+            "nitcoinTransferFee": 0.0005,
+            "tradingFee": 0.25,
+            "api_key": "API_KEY",
+            "api_secret": "API_SECRET"
         }
     ]
 }

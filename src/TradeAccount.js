@@ -4,26 +4,26 @@ import {
 } from "./supportedTradingPlatforms";
 
 export class TradeAccount {
-    constructor(tradingPlatform, currentTradeCoin, baseCoin) {
+    constructor(tradingPlatform, coin, baseCoin) {
         this.currentAskPrice = 0.0
         this.currentBidPrice = 0.0
         this.currentBidQty = 0.0
         this.currentAskQty = 0.0
         this.baseCoin = new Coin(baseCoin)
-        this.currentTradeCoin = new Coin(currentTradeCoin)
-        this.tradingFee = tradingPlatform.TradingFee
+        this.currentTradeCoin = new Coin(coin)
+        this.tradingFee = tradingPlatform.tradingFee
 
-        this.tradingPlatform = new supportedTradingPlatforms[tradingPlatform.Name]({
-            apiKey: tradingPlatform.API_KEY,
-            secret: tradingPlatform.API_SECRET
+        this.tradingPlatform = new supportedTradingPlatforms[tradingPlatform.name]({
+            apiKey: tradingPlatform.api_key,
+            secret: tradingPlatform.api_secret
         })
 
         this.metaInfo = this.tradingPlatform.describe()
         console.log(`Create account of ${this.tradingPlatform.id}`)
     }
 
-    updateCurrentTradeCoin(currentTradeCoin){
-        this.currentTradeCoin = new Coin(currentTradeCoin)
+    updateCurrentTradeCoin(coin){
+        this.currentTradeCoin = new Coin(coin)
     }
 
     async updatePrices() {
