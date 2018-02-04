@@ -34,10 +34,10 @@ export class AutoTrader {
     async trade() {
         console.log('trading...')
         if (this.testMode) {
-            this.tradeInfo.sellPrice += 0.00000900
-            this.tradeInfo.buyPrice -= 0.00000900
-            this.tradeInfo.coinQuantityAtBuy = 100
-            this.tradeInfo.coinQuantityAtSell = 100
+            this.tradeInfo.sellPrice += 0.00000500
+            this.tradeInfo.buyPrice -= 0.00000500
+            this.tradeInfo.coinQuantityAtBuy = 500
+            this.tradeInfo.coinQuantityAtSell = 500
         }
 
         let okToTrade = await this.tradable()
