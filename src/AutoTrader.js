@@ -24,7 +24,8 @@ export class AutoTrader {
         } else if (this.tradeInfo.baseCoinProfit <= 0) {
             console.warn(`Profit is too low: ${this.tradeInfo.baseCoinProfit.toFixed(8)}`)
             okToTrade = false
-        } else if (this.sellAccount.currentTradeCoin.balance <= 0.01000000 / this.tradeInfo.sellPrice) {
+        } else if (this.sellAccount.currentTradeCoin.balance.free < this.tradeInfo.coinQuantityAtSell) {
+            console.warn(`${this.sellAccount.tradingPlatform.name}: ${this.sellAccount.currentTradeCoin.balance.free} ${this.sellAccount.currentTradeCoin.token} is not enough to sell`)
             okToTrade = false
         }
 
