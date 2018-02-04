@@ -10,11 +10,12 @@
     "node": "node ./dist/index.js",
     "build": "babel ./src -d ./dist --source-maps"
   },
-  "author": "Phi Huynh",  
+  "author": "Phi Huynh",
   "license": "MIT",
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
     "ccxt": "^1.10.967",
+    "chalk": "^2.3.0",
     "config": "^1.29.2",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",

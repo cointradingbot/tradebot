@@ -1,7 +1,16 @@
-import { TradeBotOptions } from './TradeBotOptions'
-import { TradeInfoAnalyzer } from './TradeInfoAnalyzer'
-import { AutoTrader } from './AutoTrader'
-import { emailHelper } from './helper/EmailHelper'
+import {
+    TradeBotOptions
+} from './TradeBotOptions'
+import {
+    TradeInfoAnalyzer
+} from './TradeInfoAnalyzer'
+import {
+    AutoTrader
+} from './AutoTrader'
+import {
+    emailHelper
+} from './helper/EmailHelper'
+import chalk from 'chalk'
 
 export class TradeBot {
     constructor(tradebotOptions, io) {
@@ -12,6 +21,7 @@ export class TradeBot {
     }
 
     async execute() {
+        let previousColor = 'green'
         const delay = time => new Promise(res => setTimeout(() => res(), time));
         while (true) {
             for (let i = 0; i < this.tradebotOptions.tradeCoins.length; i++) {
@@ -32,18 +42,26 @@ export class TradeBot {
                         `BTC Profit: ${tradeInfo.baseCoinProfit.toFixed(8)} - ` +
                         `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`
 
-                    console.log(content)
+                    if (previousColor === 'green') {
+                        console.log(chalk.bgWhiteBright(chalk.black(content)))
+                        previousColor = 'cyan'
+                    } else {
+                        console.log(chalk.bgCyanBright(chalk.black(content)))
+                        previousColor = 'green'
+                    }
+                    console.log('')
+
                     this.io.emit('price', content)
 
                     if (tradeInfo.deltaBidAsk >= this.currentTradeCoin.expectedDelta) {
-                        if(this.tradebotOptions.isAutoTrading){
+                        if (this.tradebotOptions.isAutoTrading) {
                             console.log('auto trading ...')
                             let trader = new AutoTrader(
                                 this.tradebotOptions.inTestMode,
                                 this.tradebotOptions.sellAccount,
                                 this.tradebotOptions.buyAccount,
                                 tradeInfo)
-    
+
                             await trader.trade()
                             this.quitInTestMode()
                         }
@@ -52,7 +70,7 @@ export class TradeBot {
 
                     this.timeLeftToSendEmail -= 2
                     await delay(1300)
-                    
+
                 } catch (err) {
                     console.log(err)
                     await delay(1300)
