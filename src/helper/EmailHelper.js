@@ -3,11 +3,11 @@ import * as config from 'config'
 
 class EmailHelper {
     sendEmail(subject, content) {
-        let emailConfig = config['Email']
-        sgMail.setApiKey(emailConfig.ApiKey);
+        let emailConfig = config['email']
+        sgMail.setApiKey(emailConfig.apiKey);
         const msg = {
-            to: emailConfig.EmailTo,
-            from: emailConfig.EmailFrom,
+            to: emailConfig.emailTo,
+            from: emailConfig.emailFrom,
             subject: subject,
             text: content,
             html: content,

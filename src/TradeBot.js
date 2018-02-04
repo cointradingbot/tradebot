@@ -1,7 +1,7 @@
-import TradeBotOptions from './TradeBotOptions'
+import { TradeBotOptions } from './TradeBotOptions'
 import { TradeInfoAnalyzer } from './TradeInfoAnalyzer'
-import AutoTrader from './AutoTrader'
-import emailHelper from './helper/EmailHelper'
+import { AutoTrader } from './AutoTrader'
+import { emailHelper } from './helper/EmailHelper'
 
 export class TradeBot {
     constructor(tradebotOptions, io) {
