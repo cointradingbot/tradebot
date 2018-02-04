@@ -40,7 +40,11 @@ export class AutoTrader {
             this.tradeInfo.coinQuantityAtSell = 100
         }
 
-        if (await this.tradable()) {
+        let okToTrade = await this.tradable()
+        if (okToTrade || this.testMode) {
+            if(!okToTrade && this.testMode){
+                console.log('Not tradable, but still trade in test mode...')
+            }
             await Promise.all([
                 this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice),
                 this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice)

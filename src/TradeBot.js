@@ -35,24 +35,24 @@ export class TradeBot {
                     console.log(content)
                     this.io.emit('price', content)
 
-                    if (this.tradebotOptions.isAutoTrading && tradeInfo.deltaBidAsk >= this.currentTradeCoin.expectedDelta) {
-                        console.log('auto trading ...')
-                        let trader = new AutoTrader(
-                            this.tradebotOptions.inTestMode,
-                            this.tradebotOptions.sellAccount,
-                            this.tradebotOptions.buyAccount,
-                            tradeInfo)
-
-                        await trader.trade()
-                    }
-
                     if (tradeInfo.deltaBidAsk >= this.currentTradeCoin.expectedDelta) {
+                        if(this.tradebotOptions.isAutoTrading){
+                            console.log('auto trading ...')
+                            let trader = new AutoTrader(
+                                this.tradebotOptions.inTestMode,
+                                this.tradebotOptions.sellAccount,
+                                this.tradebotOptions.buyAccount,
+                                tradeInfo)
+    
+                            await trader.trade()
+                            this.quitInTestMode()
+                        }
                         this.sendEmailIfTimePassed(content, content)
                     }
 
                     this.timeLeftToSendEmail -= 2
                     await delay(1300)
-                    this.quitInTestMode()
+                    
                 } catch (err) {
                     console.log(err)
                     await delay(1300)
@@ -71,7 +71,7 @@ export class TradeBot {
 
     quitInTestMode() {
         if (this.tradebotOptions.inTestMode) {
-            return
+            process.exit()
         }
     }
 
