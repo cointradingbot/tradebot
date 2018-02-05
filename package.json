@@ -14,12 +14,12 @@
   "license": "MIT",
   "dependencies": {
     "@sendgrid/mail": "^6.2.1",
-    "ccxt": "^1.10.967",
+    "ccxt": "^1.10.1001",
     "chalk": "^2.3.0",
-    "config": "^1.29.2",
+    "config": "^1.29.4",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "path": "^0.12.7",
     "socket.io": "^2.0.4"
   },
