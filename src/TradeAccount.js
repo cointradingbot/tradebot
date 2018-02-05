@@ -48,7 +48,7 @@ export class TradeAccount {
         await this.tradingPlatform.createOrder(
             `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
 
-        let content = `${this.tradingPlatform.name}: Buy ordered ${coinQuantityAtBuy} ${this.baseCoin.token}, price: ${buyPrice.toFixed(8)}`
+        let content = `${this.tradingPlatform.name}: Buy ordered ${coinQuantityAtBuy} ${this.currentTradeCoin.token}, price: ${buyPrice.toFixed(8)}`
         emailHelper.sendEmail(content, content)
     }
 
@@ -56,7 +56,7 @@ export class TradeAccount {
         await this.tradingPlatform.createOrder(
             `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'sell', coinQuantityAtSell, sellPrice, {})
 
-        let content = `${this.tradingPlatform.name}: Sell ordered ${coinQuantityAtSell} ${this.baseCoin.token}, price: ${sellPrice.toFixed(8)}`
+        let content = `${this.tradingPlatform.name}: Sell ordered ${coinQuantityAtSell} ${this.currentTradeCoin.token}, price: ${sellPrice.toFixed(8)}`
         emailHelper.sendEmail(content, content)
     }
 

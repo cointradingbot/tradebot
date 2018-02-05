@@ -19,7 +19,8 @@ const supportedTradingPlatforms = {
     'poloniex': ccxt.poloniex,
     'bitfinex': ccxt.bitfinex,
     'huobipro': ccxt.huobipro,
-    'yobit': ccxt.yobit
+    'yobit': ccxt.yobit,
+    'cex': ccxt.cex
 }
 
 export { supportedTradingPlatforms }
