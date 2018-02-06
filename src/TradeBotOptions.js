@@ -15,6 +15,12 @@ export class TradeBotOptions {
         this.tradeMode = null
         this.inTestMode = true
 
+        // AutoBalance Mode
+        // Sometime, when delta meets the expected number, but we don't have enough 
+        // bitcoin to buy. It's time to move BTC back to the other side
+        // so that we can do the trading.
+        this.autoBalance = false
+
         console.log('TradeBotOptions initialzed...')
     }
 }

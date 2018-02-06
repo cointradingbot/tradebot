@@ -9,6 +9,7 @@
     "expectedDelta": "0.00000100",
     "isAutoTrading": false,
     "tradeFlow": "AutoSwitch",
+    "autoBalance": true,
     "tradeCoins": [
         {
             "token": "XVG",

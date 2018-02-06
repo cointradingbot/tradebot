@@ -28,6 +28,7 @@ export class BotService {
         tradeBotOptions.baseCoin = config['baseCoin']
         tradeBotOptions.isAutoTrading = config['isAutoTrading']
         tradeBotOptions.inTestMode = config['testMode']
+        tradeBotOptions.autoBalance = config['autoBalance']
 
         var tradingPlatforms = config['tradingPlatforms']
 
