@@ -39,8 +39,11 @@ export class AutoTrader {
         if (this.buyAccount.baseCoin.balance.free /
             (this.sellAccount.baseCoin.balance.free + this.buyAccount.baseCoin.balance.free) > 0.6) {
             console.log('AutoBalance trading ...')
-            await this.trade()
-            emailHelper.sendEmail('AutoBalance', 'Finished auto trading')
+            let result = await this.trade()
+            if(result)
+            {
+                emailHelper.sendEmail('AutoBalance', 'Finished auto trading')
+            }
         } else {
             console.log('Not suitable for autotrading!')
         }
@@ -48,6 +51,7 @@ export class AutoTrader {
 
     async trade() {
         console.log('trading...')
+        let result = false
         if (this.testMode) {
             this.tradeInfo.sellPrice += 0.00000500
             this.tradeInfo.buyPrice -= 0.00000500
@@ -64,8 +68,11 @@ export class AutoTrader {
                 this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice),
                 this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice)
             ])
+            result = true
         } else {
             console.log('Not tradable, please check your trade accounts...')
         }
+
+        return result
     }
 }
