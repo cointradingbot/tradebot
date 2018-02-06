@@ -71,14 +71,12 @@ export class TradeBot {
                     // autobalance mode
                     // if base coin at buy side is greater than 60% 
                     // then we should move a bit the opposite side
-                    else if (tradeInfo.baseCoinProfit > 0 &&
-                        this.tradebotOptions.autoBalance &&
-                        !this.tradebotOptions.inTestMode) {
+                    else if (tradeInfo.baseCoinProfit > 0 && this.tradebotOptions.autoBalance) {
                         console.log(`Entering the auto balance mode ...`)
                         if (this.buyAccount.baseCoin.balance.free /
                             (this.sellAccount.baseCoin.balance.free + this.buyAccount.baseCoin.balance.free) > 0.6) {
                             let trader = new AutoTrader(
-                                false,
+                                this.tradebotOptions.inTestMode,
                                 this.tradebotOptions.sellAccount,
                                 this.tradebotOptions.buyAccount,
                                 tradeInfo)
