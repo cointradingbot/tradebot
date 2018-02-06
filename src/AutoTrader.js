@@ -1,6 +1,7 @@
 import {
     TradeInfo
 } from './TradeInfo'
+import { emailHelper } from './helper/EmailHelper';
 
 export class AutoTrader {
     constructor(testMode, sellAccount, buyAccount, tradeInfo) {
@@ -10,14 +11,16 @@ export class AutoTrader {
         this.tradeInfo = tradeInfo
     }
 
-    async tradable() {
-        let okToTrade = true
+    async updateBalances() {
         await Promise.all([
             this.buyAccount.updateBalances(),
             this.sellAccount.updateBalances()
         ])
+    }
 
-        console.log('finished updated balances ...')
+    async tradable() {
+        let okToTrade = true
+
         if (this.tradeInfo.baseCoinQuantityAtBuy >= this.buyAccount.baseCoin.balance.free) {
             console.warn(`${this.buyAccount.tradingPlatform.name}: ${this.buyAccount.baseCoin.balance.free} ${this.buyAccount.baseCoin.token} is not enough to buy`)
             okToTrade = false
@@ -32,6 +35,17 @@ export class AutoTrader {
         return okToTrade
     }
 
+    async tradeAutoBalance() {
+        if (this.buyAccount.baseCoin.balance.free /
+            (this.sellAccount.baseCoin.balance.free + this.buyAccount.baseCoin.balance.free) > 0.6) {
+            console.log('AutoBalance trading ...')
+            await this.trade()
+            emailHelper.sendEmail('AutoBalance', 'Finished auto trading')
+        } else {
+            console.log('Not suitable for autotrading!')
+        }
+    }
+
     async trade() {
         console.log('trading...')
         if (this.testMode) {
@@ -43,7 +57,7 @@ export class AutoTrader {
 
         let okToTrade = await this.tradable()
         if (okToTrade || this.testMode) {
-            if(!okToTrade && this.testMode){
+            if (!okToTrade && this.testMode) {
                 console.log('Not tradable, but still trade in test mode...')
             }
             await Promise.all([

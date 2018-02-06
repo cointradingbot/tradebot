@@ -61,7 +61,7 @@ export class TradeBot {
                                 this.tradebotOptions.sellAccount,
                                 this.tradebotOptions.buyAccount,
                                 tradeInfo)
-
+                            await trader.updateBalances()
                             await trader.trade()
                             this.quitInTestMode()
                         }
@@ -73,15 +73,14 @@ export class TradeBot {
                     // then we should move a bit the opposite side
                     else if (tradeInfo.baseCoinProfit > 0 && this.tradebotOptions.autoBalance) {
                         console.log(`Entering the auto balance mode ...`)
-                        if (this.buyAccount.baseCoin.balance.free /
-                            (this.sellAccount.baseCoin.balance.free + this.buyAccount.baseCoin.balance.free) > 0.6) {
-                            let trader = new AutoTrader(
-                                this.tradebotOptions.inTestMode,
-                                this.tradebotOptions.sellAccount,
-                                this.tradebotOptions.buyAccount,
-                                tradeInfo)
-                            await trader.trade()
-                        }
+
+                        let trader = new AutoTrader(
+                            this.tradebotOptions.inTestMode,
+                            this.tradebotOptions.sellAccount,
+                            this.tradebotOptions.buyAccount,
+                            tradeInfo)
+                        await trader.updateBalances()
+                        await trader.tradeAutoBalance()
                     }
 
                     this.timeLeftToSendEmail -= 2
