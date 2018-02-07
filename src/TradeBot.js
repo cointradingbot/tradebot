@@ -22,6 +22,7 @@ export class TradeBot {
 
     async execute() {
         let previousColor = 'green'
+        let transNumber = 0
         const delay = time => new Promise(res => setTimeout(() => res(), time));
         while (true) {
             for (let i = 0; i < this.tradebotOptions.tradeCoins.length; i++) {
@@ -60,7 +61,9 @@ export class TradeBot {
                                 this.tradebotOptions.inTestMode,
                                 this.tradebotOptions.sellAccount,
                                 this.tradebotOptions.buyAccount,
-                                tradeInfo)
+                                tradeInfo,
+                                transNumber
+                            )
                             await trader.updateBalances()
                             await trader.trade()
                             this.quitInTestMode()

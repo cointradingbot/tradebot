@@ -4,11 +4,12 @@ import {
 import { emailHelper } from './helper/EmailHelper';
 
 export class AutoTrader {
-    constructor(testMode, sellAccount, buyAccount, tradeInfo) {
+    constructor(testMode, sellAccount, buyAccount, tradeInfo, transNumber) {
         this.sellAccount = sellAccount
         this.buyAccount = buyAccount
         this.testMode = testMode
         this.tradeInfo = tradeInfo
+        this.transNumber = transNumber
     }
 
     async updateBalances() {
@@ -65,8 +66,8 @@ export class AutoTrader {
                 console.log('Not tradable, but still trade in test mode...')
             }
             await Promise.all([
-                this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice),
-                this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice)
+                this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice, this.transNumber),
+                this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice, this.transNumber)
             ])
             result = true
         } else {

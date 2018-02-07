@@ -44,19 +44,24 @@ export class TradeAccount {
         this.currentTradeCoin.balance = balance[this.currentTradeCoin.token]
     }
 
-    async buy(coinQuantityAtBuy, buyPrice) {
+    async buy(coinQuantityAtBuy, buyPrice, transNumber) {
         await this.tradingPlatform.createOrder(
             `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
-
         let content = `${this.tradingPlatform.name}: Buy ordered ${coinQuantityAtBuy} ${this.currentTradeCoin.token}, price: ${buyPrice.toFixed(8)}`
+        if (transNumber !== null) {
+            content = `${transNumber} - ${content}`
+        }
         emailHelper.sendEmail(content, content)
     }
 
-    async sell(coinQuantityAtSell, sellPrice) {
+    async sell(coinQuantityAtSell, sellPrice, transNumber) {
         await this.tradingPlatform.createOrder(
             `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'sell', coinQuantityAtSell, sellPrice, {})
 
         let content = `${this.tradingPlatform.name}: Sell ordered ${coinQuantityAtSell} ${this.currentTradeCoin.token}, price: ${sellPrice.toFixed(8)}`
+        if (transNumber !== null) {
+            content = `${transNumber} - ${content}`
+        }
         emailHelper.sendEmail(content, content)
     }
 
