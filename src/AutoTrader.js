@@ -1,15 +1,23 @@
 import {
     TradeInfo
 } from './TradeInfo'
-import { emailHelper } from './helper/EmailHelper';
+import {
+    emailHelper
+} from './helper/EmailHelper';
+
+export const TradeSide = Object.freeze({
+    BuyThenSell: Symbol('BuyThenSell'),
+    SellThenBuy: Symbol('SellThenBuy')
+})
 
 export class AutoTrader {
-    constructor(testMode, sellAccount, buyAccount, tradeInfo, transNumber) {
+    constructor(testMode, sellAccount, buyAccount, tradeInfo, transNumber, tradeSide) {
         this.sellAccount = sellAccount
         this.buyAccount = buyAccount
         this.testMode = testMode
         this.tradeInfo = tradeInfo
         this.transNumber = transNumber
+        this.tradeSide = tradeSide
     }
 
     async updateBalances() {
@@ -41,8 +49,7 @@ export class AutoTrader {
             (this.sellAccount.baseCoin.balance.free + this.buyAccount.baseCoin.balance.free) > 0.6) {
             console.log('AutoBalance trading ...')
             let result = await this.trade()
-            if(result)
-            {
+            if (result) {
                 emailHelper.sendEmail('AutoBalance', 'Finished auto trading')
             }
         } else {
@@ -66,9 +73,12 @@ export class AutoTrader {
                 console.log('Not tradable, but still trade in test mode...')
             }
             await Promise.all([
-                this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice, this.transNumber),
-                this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice, this.transNumber)
-            ])
+                    this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice, this.transNumber),
+                    this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice, this.transNumber)
+                ])
+                .catch(e => {
+                    
+                })
             result = true
         } else {
             console.log('Not tradable, please check your trade accounts...')
