@@ -13,4 +13,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 
+COPY ./static/* ./static
+
 CMD [ "npm", "run", "node" , "./dist/index.js"]
