@@ -1,13 +1,17 @@
 var app = require('express')()
+var express = require('express')
 var http = require('http').Server(app)
 var io = require('socket.io')(http);
 var path = require('path')
 
-app.get('/', function (req, res) {
+app.use(express.static('static'))
+app.get('/health-check', (req, res) => res.sendStatus(200))
+
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/../index.html'));
 });
 
-io.on('connection', function (socket) {
+io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('chat message', function (msg) {
         io.emit('chat message', msg);
@@ -18,7 +22,7 @@ io.on('connection', function (socket) {
     });
 });
 
-http.listen(3000, function () {
+http.listen(3000, () => {
     console.log('listening on *:3000');
 });
 
