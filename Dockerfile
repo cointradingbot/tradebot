@@ -5,7 +5,7 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" | tee /etc/apt
 RUN apt-get update
 RUN apt-get install -y python-certbot-apache -t jessie-backports
 
-WORKDIR ./
+WORKDIR /app/
 
 COPY package*.json ./
 RUN npm install
