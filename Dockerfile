@@ -1,9 +1,9 @@
 FROM node:9
 
 # Install Letsencrypt
-RUN apt-get update && apt-get install -y software-properties-common python-software-properties
-RUN add-apt-repository ppa:certbot/certbot
-RUN apt-get update && apt-get install -y letsencrypt
+RUN echo "deb http://ftp.debian.org/debian jessie-backports main" | tee /etc/apt/sources.list.d/docker.list
+RUN apt-get update
+RUN apt-get install -y python-certbot-apache -t jessie-backports
 
 WORKDIR ./
 
