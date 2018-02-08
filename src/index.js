@@ -1,8 +1,18 @@
 var app = require('express')()
 var express = require('express')
-var http = require('http').Server(app)
-var io = require('socket.io')(http);
 var path = require('path')
+var fs = require('fs')
+var https = require('https')
+
+const sslOptions = {
+    cert: fs.readFileSync(path.join(__dirname + '/../static/fullchain.pem')),
+    key: fs.readFileSync(path.join(__dirname + '/../static/privkey.pem')),
+}
+
+var server = https.createServer(sslOptions, app).listen(443)
+var io = require('socket.io')(server);
+// var http = require('http').Server(app)
+// var io = require('socket.io')(http);
 
 app.use(express.static('static'))
 app.get('/health-check', (req, res) => res.sendStatus(200))
@@ -22,9 +32,10 @@ io.on('connection', (socket) => {
     });
 });
 
-http.listen(3000, () => {
-    console.log('listening on *:3000');
-});
+// http.listen(3000, () => {
+//     console.log('listening on *:3000');
+// });
+
 
 const BotService = require('./BotService')
 
