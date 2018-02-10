@@ -14,5 +14,6 @@ COPY . .
 RUN npm run build
 
 COPY ./static/* ./static/
+COPY ./sslcerts/* ./sslcerts/
 
 CMD [ "npm", "run", "node" , "./dist/index.js"]
