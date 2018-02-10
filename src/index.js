@@ -5,8 +5,8 @@ var fs = require('fs')
 var https = require('https')
 
 const sslOptions = {
-    cert: fs.readFileSync(path.join(__dirname + '/../static/fullchain.pem')),
-    key: fs.readFileSync(path.join(__dirname + '/../static/privkey.pem')),
+    cert: fs.readFileSync(path.join(__dirname + '/../sslcerts/fullchain.pem')),
+    key: fs.readFileSync(path.join(__dirname + '/../sslcerts/privkey.pem')),
 }
 
 var server = https.createServer(sslOptions, app).listen(443)
