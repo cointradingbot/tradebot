@@ -57,6 +57,7 @@ export class TradeBot {
                     if (tradeInfo.deltaBidAsk >= this.currentTradeCoin.expectedDelta) {
                         if (this.tradebotOptions.isAutoTrading) {
                             console.log('auto trading ...')
+                            transNumber++
                             let trader = new AutoTrader(
                                 this.tradebotOptions.inTestMode,
                                 this.tradebotOptions.sellAccount,
@@ -81,7 +82,9 @@ export class TradeBot {
                             this.tradebotOptions.inTestMode,
                             this.tradebotOptions.sellAccount,
                             this.tradebotOptions.buyAccount,
-                            tradeInfo)
+                            tradeInfo,
+                            'AUTO'
+                        )
                         await trader.updateBalances()
                         await trader.tradeAutoBalance()
                     }

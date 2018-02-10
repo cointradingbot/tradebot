@@ -76,9 +76,6 @@ export class AutoTrader {
                     this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice, this.transNumber),
                     this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice, this.transNumber)
                 ])
-                .catch(e => {
-                    
-                })
             result = true
         } else {
             console.log('Not tradable, please check your trade accounts...')
