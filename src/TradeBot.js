@@ -10,6 +10,9 @@ import {
 import {
     emailHelper
 } from './helper/EmailHelper'
+import {
+    TradingError
+} from './errors/TradingError'
 import chalk from 'chalk'
 
 export class TradeBot {
@@ -24,6 +27,7 @@ export class TradeBot {
         let previousColor = 'green'
         let transNumber = 0
         const delay = time => new Promise(res => setTimeout(() => res(), time));
+        var errorPlatform = undefined
         while (true) {
             for (let i = 0; i < this.tradebotOptions.tradeCoins.length; i++) {
                 try {
@@ -63,7 +67,8 @@ export class TradeBot {
                                 this.tradebotOptions.sellAccount,
                                 this.tradebotOptions.buyAccount,
                                 tradeInfo,
-                                transNumber
+                                transNumber,
+                                errorPlatform
                             )
                             await trader.updateBalances()
                             await trader.trade()
@@ -83,7 +88,8 @@ export class TradeBot {
                             this.tradebotOptions.sellAccount,
                             this.tradebotOptions.buyAccount,
                             tradeInfo,
-                            'AUTO'
+                            'AUTO',
+                            errorPlatform
                         )
                         await trader.updateBalances()
                         await trader.tradeAutoBalance()
@@ -93,6 +99,9 @@ export class TradeBot {
                     await delay(1000)
 
                 } catch (err) {
+                    if (err instanceof TradingError) {
+                        errorPlatform = err.errorPlatform
+                    }
                     console.log(err)
                     await delay(1000)
                     this.quitInTestMode()

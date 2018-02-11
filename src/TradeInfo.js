@@ -12,6 +12,6 @@ export class TradeInfo {
         this.buyPrice = 0
         this.tradable = false
         // In case we can't trade, what's the reason
-        this.message = 'undefined'
+        this.message = undefined
     }
 }

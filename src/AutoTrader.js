@@ -5,19 +5,14 @@ import {
     emailHelper
 } from './helper/EmailHelper';
 
-export const TradeSide = Object.freeze({
-    BuyThenSell: Symbol('BuyThenSell'),
-    SellThenBuy: Symbol('SellThenBuy')
-})
-
 export class AutoTrader {
-    constructor(testMode, sellAccount, buyAccount, tradeInfo, transNumber, tradeSide) {
+    constructor(testMode, sellAccount, buyAccount, tradeInfo, transNumber, errorPlatform) {
         this.sellAccount = sellAccount
         this.buyAccount = buyAccount
         this.testMode = testMode
         this.tradeInfo = tradeInfo
         this.transNumber = transNumber
-        this.tradeSide = tradeSide
+        this.errorPlatform = errorPlatform
     }
 
     async updateBalances() {
@@ -72,10 +67,13 @@ export class AutoTrader {
             if (!okToTrade && this.testMode) {
                 console.log('Not tradable, but still trade in test mode...')
             }
-            await Promise.all([
-                    this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice, this.transNumber),
-                    this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice, this.transNumber)
-                ])
+            if (this.errorPlatform === this.buyAccount.tradingPlatform.name) {
+                await this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice, this.transNumber)
+                await this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice, this.transNumber)
+            } else {
+                await this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice, this.transNumber)
+                await this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice, this.transNumber)
+            }
             result = true
         } else {
             console.log('Not tradable, please check your trade accounts...')

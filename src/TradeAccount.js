@@ -5,6 +5,9 @@ import {
 import {
     emailHelper
 } from './helper/EmailHelper'
+import {
+    TradingError
+} from './errors/TradingError'
 
 export class TradeAccount {
     constructor(tradingPlatform, coin, baseCoin) {
@@ -45,24 +48,32 @@ export class TradeAccount {
     }
 
     async buy(coinQuantityAtBuy, buyPrice, transNumber) {
-        await this.tradingPlatform.createOrder(
-            `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
-        let content = `${this.tradingPlatform.name}: Buy ordered ${coinQuantityAtBuy} ${this.currentTradeCoin.token}, price: ${buyPrice.toFixed(8)}`
-        if (transNumber !== null) {
-            content = `${transNumber} - ${content}`
+        try {
+            await this.tradingPlatform.createOrder(
+                `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
+            let content = `${this.tradingPlatform.name}: Buy ordered ${coinQuantityAtBuy} ${this.currentTradeCoin.token}, price: ${buyPrice.toFixed(8)}`
+            if (transNumber !== null) {
+                content = `${transNumber} - ${content}`
+            }
+            emailHelper.sendEmail(content, content)
+        } catch (err) {
+            throw new TradingError(`${this.tradingPlatform.name} BUY ERROR: ${err.message}`, this.tradingPlatform.name)
         }
-        emailHelper.sendEmail(content, content)
     }
 
     async sell(coinQuantityAtSell, sellPrice, transNumber) {
-        await this.tradingPlatform.createOrder(
-            `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'sell', coinQuantityAtSell, sellPrice, {})
+        try {
+            await this.tradingPlatform.createOrder(
+                `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'sell', coinQuantityAtSell, sellPrice, {})
 
-        let content = `${this.tradingPlatform.name}: Sell ordered ${coinQuantityAtSell} ${this.currentTradeCoin.token}, price: ${sellPrice.toFixed(8)}`
-        if (transNumber !== null) {
-            content = `${transNumber} - ${content}`
+            let content = `${this.tradingPlatform.name}: Sell ordered ${coinQuantityAtSell} ${this.currentTradeCoin.token}, price: ${sellPrice.toFixed(8)}`
+            if (transNumber !== null) {
+                content = `${transNumber} - ${content}`
+            }
+            emailHelper.sendEmail(content, content)
+        } catch (err) {
+            throw new TradingError(`${this.tradingPlatform.name} SELL ERROR: ${err.message}`, this.tradingPlatform.name)
         }
-        emailHelper.sendEmail(content, content)
     }
 
     async isOrderMatched() {
