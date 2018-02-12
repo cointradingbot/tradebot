@@ -4,7 +4,7 @@
   "description": "TradeBot",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "babel-node": "babel-node --presets=latest ./src/index.js",
     "start": "nodemon --exec npm run babel-node -- ./src/index.js",
     "node": "node ./dist/index.js",
@@ -25,10 +25,15 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.2.2",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-latest": "^6.24.1",
-    "nodemon": "^1.14.12"
+    "jest": "^22.2.2",
+    "jest-cli": "^22.2.2",
+    "nodemon": "^1.14.12",
+    "regenerator-runtime": "^0.11.1"
   },
   "babel": {
     "presets": [
