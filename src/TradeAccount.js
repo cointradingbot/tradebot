@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-fetch' // for jest integration test
 import * as ccxt from 'ccxt'
 import {
     supportedTradingPlatforms
