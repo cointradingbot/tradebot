@@ -11,6 +11,7 @@ import {
     TradeAccount
 } from '../src/TradeAccount'
 
+
 var buyAccount = new TradeAccount()
 var sellAccount = new TradeAccount()
 
@@ -34,3 +35,17 @@ var autoTrader = new AutoTrader(true, sellAccount, buyAccount, tradeInfo, 0, und
 test('negative profit should be not tradable', () => {
     expect(autoTrader.tradable()).toBe(false)
 })
+
+test('not enough trade coin balance should be not tradable', () => {
+    expect(autoTrader.tradable()).toBe(false)
+})
+
+test('not enough base coin balance should be not tradable', () => {
+    expect(autoTrader.tradable()).toBe(false)
+})
+
+test('exception at a platform should be captured for next time of trading', () => {
+
+})
+
+test('')

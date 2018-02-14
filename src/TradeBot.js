@@ -25,7 +25,7 @@ export class TradeBot {
 
     async execute() {
         let previousColor = 'green'
-        let transNumber = 0
+        let transNumber = 1
         const delay = time => new Promise(res => setTimeout(() => res(), time));
         var errorPlatform = undefined
         while (true) {
@@ -71,7 +71,12 @@ export class TradeBot {
                                 errorPlatform
                             )
                             await trader.updateBalances()
-                            await trader.trade()
+                            let result = await trader.trade()
+
+                            if (result) {
+                                transNumber++
+                            }
+
                             this.quitInTestMode()
                         }
 
@@ -101,6 +106,7 @@ export class TradeBot {
                 } catch (err) {
                     if (err instanceof TradingError) {
                         errorPlatform = err.errorPlatform
+                        emailHelper.sendEmail('TRADING ERROR', err.message)
                     }
                     console.log(err)
                     await delay(1000)
