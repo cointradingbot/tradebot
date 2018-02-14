@@ -61,7 +61,6 @@ export class TradeBot {
                     if (tradeInfo.deltaBidAsk >= this.currentTradeCoin.expectedDelta) {
                         if (this.tradebotOptions.isAutoTrading) {
                             console.log('auto trading ...')
-                            transNumber++
                             let trader = new AutoTrader(
                                 this.tradebotOptions.inTestMode,
                                 this.tradebotOptions.sellAccount,
