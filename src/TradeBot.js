@@ -106,6 +106,7 @@ export class TradeBot {
                     if (err instanceof TradingError) {
                         errorPlatform = err.errorPlatform
                         emailHelper.sendEmail('TRADING ERROR', err.message)
+                        process.exit()
                     }
                     console.log(err)
                     await delay(1000)

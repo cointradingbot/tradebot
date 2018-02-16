@@ -67,13 +67,12 @@ export class AutoTrader {
             if (!okToTrade && this.testMode) {
                 console.log('Not tradable, but still trade in test mode...')
             }
-            if (this.errorPlatform === this.buyAccount.tradingPlatform.name) {
-                await this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice, this.transNumber)
-                await this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice, this.transNumber)
-            } else {
-                await this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice, this.transNumber)
-                await this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice, this.transNumber)
-            }
+
+            await Promise.all([
+                this.buyAccount.buy(this.tradeInfo.coinQuantityAtBuy, this.tradeInfo.buyPrice, this.transNumber),
+                this.sellAccount.sell(this.tradeInfo.coinQuantityAtSell, this.tradeInfo.sellPrice, this.transNumber)
+            ])
+
             result = true
         } else {
             console.log('Not tradable, please check your trade accounts...')
