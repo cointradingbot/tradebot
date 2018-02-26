@@ -47,6 +47,21 @@ export class TradeBot {
                         `BTC Profit: ${tradeInfo.baseCoinProfit.toFixed(8)} - ` +
                         `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`
 
+                    let jsonContent = {
+                        coin: this.currentTradeCoin.token,
+                        sellAccount: {
+                            platform: this.sellAccount.tradingPlatform.id,
+                            sellPrice: this.sellAccount.currentBidPrice.toFixed(8)
+                        },
+                        buyAccount: {
+                            platform: this.buyAccount.tradingPlatform.id,
+                            buyPrice: this.buyAccount.currentAskPrice.toFixed(8)
+                        },
+                        bidask: tradeInfo.deltaBidAsk.toFixed(8),
+                        profit: tradeInfo.baseCoinProfit.toFixed(8),
+                        coinQty: tradeInfo.coinQuantityAtSell
+                    }
+
                     if (previousColor === 'green') {
                         console.log(chalk.bgWhiteBright(chalk.black(content)))
                         previousColor = 'cyan'
@@ -57,6 +72,7 @@ export class TradeBot {
                     console.log('')
 
                     this.io.emit('price', content)
+                    this.io.emit('pricejson', JSON.parse(jsonContent))
 
                     if (tradeInfo.deltaBidAsk >= this.currentTradeCoin.expectedDelta) {
                         if (this.tradebotOptions.isAutoTrading) {
