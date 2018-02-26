@@ -72,7 +72,7 @@ export class TradeBot {
                     console.log('')
 
                     this.io.emit('price', content)
-                    this.io.emit('pricejson', JSON.parse(jsonContent))
+                    this.io.emit('pricejson', JSON.stringify(jsonContent))
 
                     if (tradeInfo.deltaBidAsk >= this.currentTradeCoin.expectedDelta) {
                         if (this.tradebotOptions.isAutoTrading) {
