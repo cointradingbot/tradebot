@@ -7,20 +7,21 @@ $ git clone https://github.com/cointradingbot/tradebot.git && cd tradebot
 ```
 
 ## Configure email, coin, delta, plus point to win
-- Configure email so that it will send notifications everytime the tradebot sends trading commands. To configure the email, go to ```config/production.json``` and change the value of the email section:
 
-**apiKey**: apiKey of Sendgrid
-**emailTo**: email you want to send notifications to
-**toName**: the email name
-**emailFrom**: the email from
-**fromName**: from Name
+1. Configure email so that it will send notifications everytime the tradebot sends trading commands. To configure the email, go to ```config/production.json``` and change the value of the email section:
 
-- Configure the coin, change the value of the tradecoins section:
+- **apiKey**: apiKey of Sendgrid
+- **emailTo**: email you want to send notifications to
+- **toName**: the email name
+- **emailFrom**: the email from
+- **fromName**: from Name
 
-**token**: token value, eg. XVG, ADA, XLM, ...
-**fixQuantity**: the quantity which the bot will trade every time
-**plusPointToWin**: sometimes the market will fluctuate very much, we're not sure the tradebot's trading commands will be matched, so it's will be safe for us to plus some +/- points (shatoshi) to inrease the chance of matches.
-**expectedDelta**: when the gap between the exchanges meet the expected delta, the tradebot will send the trading commands (include plusPointToWin). The tradebot will also make sure that the trading must generate the profit, otherwise it will not execute.
+2. Configure the coin, change the value of the tradecoins section:
+
+- **token**: token value, eg. XVG, ADA, XLM, ...
+- **fixQuantity**: the quantity which the bot will trade every time
+- **plusPointToWin**: sometimes the market will fluctuate very much, we're not sure the tradebot's trading commands will be matched, so it's will be safe for us to plus some +/- points (shatoshi) to inrease the chance of matches.
+- **expectedDelta**: when the gap between the exchanges meet the expected delta, the tradebot will send the trading commands (include plusPointToWin). The tradebot will also make sure that the trading must generate the profit, otherwise it will not execute.
 
 ## Run with Docker
 
