@@ -6,7 +6,6 @@
         "emailFrom": "EMAIL_FROM",
         "fromName": "FROM_NAME"
     },
-    "expectedDelta": "0.00000100",
     "isAutoTrading": false,
     "tradeFlow": "AutoSwitch",
     "autoBalance": true,
@@ -14,17 +13,20 @@
         {
             "token": "XVG",
             "fixedQuantity": 1000,
-            "plusPointToWin": 0.00000002
+            "plusPointToWin": 0.00000002,
+            "expectedDelta": 0.00000010
         },
         {
-            "token": "XVG",
+            "token": "ADA",
             "fixedQuantity": 1000,
-            "plusPointToWin": 0.00000002
+            "plusPointToWin": 0.00000002,
+            "expectedDelta": 0.00000045
         },
         {
-            "token": "XVG",
+            "token": "XLM",
             "fixedQuantity": 1000,
-            "plusPointToWin": 0.00000002
+            "plusPointToWin": 0.00000002,
+            "expectedDelta": 0.00000045
         }
     ],
     "baseCoin": "BTC",
