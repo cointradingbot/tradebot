@@ -3,16 +3,21 @@ var express = require('express')
 var path = require('path')
 var fs = require('fs')
 var https = require('https')
+var config = require('config')
 
-const sslOptions = {
-    cert: fs.readFileSync(path.join(__dirname + '/../sslcerts/fullchain.pem')),
-    key: fs.readFileSync(path.join(__dirname + '/../sslcerts/privkey.pem')),
+const useHttps = config['useHttps']
+
+if (useHttps) {
+    const sslOptions = {
+        cert: fs.readFileSync(path.join(__dirname + '/../sslcerts/fullchain.pem')),
+        key: fs.readFileSync(path.join(__dirname + '/../sslcerts/privkey.pem')),
+    }
+    var server = https.createServer(sslOptions, app).listen(443)
+    var io = require('socket.io')(server);
+} else {
+    var server = require('http').Server(app)
+    var io = require('socket.io')(server);
 }
-
-var server = https.createServer(sslOptions, app).listen(443)
-var io = require('socket.io')(server);
-// var http = require('http').Server(app)
-// var io = require('socket.io')(http);
 
 app.use(express.static('static'))
 app.get('/health-check', (req, res) => res.sendStatus(200))
@@ -31,11 +36,6 @@ io.on('connection', (socket) => {
         console.log('user disconnected');
     });
 });
-
-// http.listen(3000, () => {
-//     console.log('listening on *:3000');
-// });
-
 
 const BotService = require('./BotService')
 
