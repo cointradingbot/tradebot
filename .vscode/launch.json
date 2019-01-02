@@ -13,6 +13,7 @@
             "runtimeExecutable": "nodemon",
             "program": "${workspaceFolder}/dist/index.js",
             "localRoot": "${workspaceFolder}/src",
+            "remoteRoot": "${workspaceFolder}/dist",
             "restart": true,
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
