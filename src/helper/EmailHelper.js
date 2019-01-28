@@ -12,7 +12,7 @@ class EmailHelper {
             text: content,
             html: content,
         };
-        sgMail.send(msg);
+        // sgMail.send(msg);
         console.log(`Sent email to ${msg.to}`)
     }
 }

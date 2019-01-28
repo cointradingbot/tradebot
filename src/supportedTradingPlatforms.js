@@ -20,7 +20,8 @@ const supportedTradingPlatforms = {
     'bitfinex': ccxt.bitfinex,
     'huobipro': ccxt.huobipro,
     'yobit': ccxt.yobit,
-    'cex': ccxt.cex
+    'cex': ccxt.cex,
+    'rightbtc': ccxt.rightbtc
 }
 
 export { supportedTradingPlatforms }

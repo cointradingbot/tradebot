@@ -1,32 +1,22 @@
 {
     "email": {
-        "apiKey": "APK_KEY",
+        "apiKey": "API_KEY",
         "emailTo": "EMAIL_TO",
-        "toName": "TO_NAME",
+        "toName": "EMAIL NAME",
         "emailFrom": "EMAIL_FROM",
-        "fromName": "FROM_NAME"
+        "fromName": "EMAIL NAME"
     },
     "isAutoTrading": false,
     "tradeFlow": "AutoSwitch",
-    "autoBalance": true,
+    "autoBalance": false,
     "tradeCoins": [
         {
-            "token": "XVG",
-            "fixedQuantity": 1000,
-            "plusPointToWin": 0.00000002,
-            "expectedDelta": 0.00000010
-        },
-        {
-            "token": "ADA",
-            "fixedQuantity": 1000,
-            "plusPointToWin": 0.00000002,
-            "expectedDelta": 0.00000045
-        },
-        {
-            "token": "XLM",
-            "fixedQuantity": 1000,
-            "plusPointToWin": 0.00000002,
-            "expectedDelta": 0.00000045
+            "token": "DLT",
+            "fixedQuantity": 40,
+            "plusPointToWin": 0.00000001,
+            "expectedDelta": 0.00000040,
+            "baseCoin": "BTC",
+            "exchanges": ["binance", "huobi", "bittrex"]
         }
     ],
     "baseCoin": "BTC",
@@ -36,14 +26,14 @@
             "bitcoinTransferFee": 0.0005,
             "tradingFee": 0.1,
             "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
+            "api_secret": "SECRET"
         },
         {
-            "name": "bittrex",
-            "nitcoinTransferFee": 0.0005,
+            "name": "rightbtc",
+            "bitcoinTransferFee": 0.001,
             "tradingFee": 0.25,
             "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
+            "api_secret": "SECRET"
         }
     ]
 }
