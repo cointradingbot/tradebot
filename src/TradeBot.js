@@ -24,7 +24,7 @@ export class TradeBot {
     }
 
     async execute() {
-        let testCount = 50
+        let testCount = 1
         try {
             let previousColor = 'green'
             let transNumber = 1
