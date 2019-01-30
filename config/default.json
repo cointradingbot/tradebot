@@ -17,6 +17,30 @@
             "expectedDelta": 0.00000050,
             "baseCoin": "BTC",
             "exchanges": ["binance", "rightbtc"]
+        },
+        {
+            "token": "TRX",
+            "fixedQuantity": 40,
+            "plusPointToWin": 0.00000001,
+            "expectedDelta": 0.00000050,
+            "baseCoin": "BTC",
+            "exchanges": ["binance", "rightbtc", "huobipro", "bittrex"]
+        },
+        {
+            "token": "ZIL",
+            "fixedQuantity": 40,
+            "plusPointToWin": 0.00000001,
+            "expectedDelta": 0.00000012,
+            "baseCoin": "BTC",
+            "exchanges": ["binance", "huobipro"]
+        },
+        {
+            "token": "XVG",
+            "fixedQuantity": 40,
+            "plusPointToWin": 0.00000001,
+            "expectedDelta": 0.00000012,
+            "baseCoin": "BTC",
+            "exchanges": ["binance", "bittrex"]
         }
     ],
     "baseCoin": "BTC",
@@ -37,6 +61,13 @@
         },
         {
             "name": "bittrex",
+            "bitcoinTransferFee": 0.001,
+            "tradingFee": 0.25,
+            "api_key": "API_KEY",
+            "api_secret": "API_SECRET"
+        },
+        {
+            "name": "huobipro",
             "bitcoinTransferFee": 0.001,
             "tradingFee": 0.25,
             "api_key": "API_KEY",

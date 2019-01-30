@@ -33,7 +33,6 @@ export class TradeBot {
             var errorPlatform = undefined
             while (true) {
                 for (const profile of this.tradebotOptions.tradeProfiles) {
-                    // for this.tradebotOptions.tradeProfiles.forEach(async profile => {
                     try {
                         let tradeInfoAnalyzer = new TradeInfoAnalyzer(profile)
                         await tradeInfoAnalyzer.updateCoinPrices()
@@ -64,19 +63,20 @@ export class TradeBot {
                             coinQty: tradeInfo.coinQuantityAtSell
                         }
 
-                        if (previousColor === 'green') {
-                            console.log(chalk.bgWhiteBright(chalk.black(content)))
-                            previousColor = 'cyan'
-                        } else {
-                            console.log(chalk.bgCyanBright(chalk.black(content)))
-                            previousColor = 'green'
-                        }
-                        console.log('')
+                        // if (previousColor === 'green') {
+                        //     console.log(chalk.bgWhiteBright(chalk.black(content)))
+                        //     previousColor = 'cyan'
+                        // } else {
+                        //     console.log(chalk.bgCyanBright(chalk.black(content)))
+                        //     previousColor = 'green'
+                        // }
+                        // console.log('')
 
                         this.io.emit('price', content)
                         this.io.emit('pricejson', JSON.stringify(jsonContent))
 
                         if (tradeInfo.deltaBidAsk >= profile.expectedDelta) {
+                            console.log(chalk.bgGreenBright(chalk.black(content)))
                             if (this.tradebotOptions.isAutoTrading) {
                                 console.log('auto trading ...')
                                 let trader = new AutoTrader(
@@ -98,25 +98,28 @@ export class TradeBot {
                             }
 
                             // this.sendEmailIfTimePassed(content, content)
+                        } else {
+                            console.log(chalk.bgWhiteBright(chalk.black(content)))
                         }
+                        console.log('')
                         // autobalance mode
                         // if base coin at buy side is greater than 60% 
                         // then we should move a bit the opposite side
-                        else if (tradeInfo.baseCoinProfit > 0 && this.tradebotOptions.autoBalance) {
-                            console.log(`AutoBalance: ${this.tradebotOptions.autoBalance}`)
-                            console.log(`Entering the auto balance mode ...`)
+                        // else if (tradeInfo.baseCoinProfit > 0 && this.tradebotOptions.autoBalance) {
+                        //     console.log(`AutoBalance: ${this.tradebotOptions.autoBalance}`)
+                        //     console.log(`Entering the auto balance mode ...`)
 
-                            let trader = new AutoTrader(
-                                this.tradebotOptions.inTestMode,
-                                profile.sellAccount,
-                                profile.buyAccount,
-                                tradeInfo,
-                                'AUTO',
-                                errorPlatform
-                            )
-                            await trader.updateBalances()
-                            await trader.tradeAutoBalance()
-                        }
+                        //     let trader = new AutoTrader(
+                        //         this.tradebotOptions.inTestMode,
+                        //         profile.sellAccount,
+                        //         profile.buyAccount,
+                        //         tradeInfo,
+                        //         'AUTO',
+                        //         errorPlatform
+                        //     )
+                        //     await trader.updateBalances()
+                        //     await trader.tradeAutoBalance()
+                        // }
 
                         this.timeLeftToSendEmail -= 2
                         await delay(1000)
