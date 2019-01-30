@@ -34,11 +34,13 @@ export class TradeAccount {
     }
 
     async updatePrices() {
-        let result = await this.tradingPlatform.fetchTicker(`${this.currentTradeCoin.token}/${this.baseCoin.token}`)
-        this.currentAskPrice = result.ask
-        this.currentAskQty = result.askVolume
-        this.currentBidPrice = result.bid
-        this.currentBidQty = result.bidVolume
+        // let result = await this.tradingPlatform.fetchTicker(`${this.currentTradeCoin.token}/${this.baseCoin.token}`)
+        let result = await this.tradingPlatform.fetchOrderBook(`${this.currentTradeCoin.token}/${this.baseCoin.token}`)
+
+        this.currentAskPrice = result.asks[0][0]
+        this.currentAskQty = result.asks[0][1]
+        this.currentBidPrice = result.bids[0][0]
+        this.currentBidQty = result.bids[0][1]
     }
 
     async updateBalances() {

@@ -34,6 +34,8 @@ export class AutoTrader {
         } else if (this.sellAccount.currentTradeCoin.balance.free < this.tradeInfo.coinQuantityAtSell) {
             console.warn(`${this.sellAccount.tradingPlatform.name}: ${this.sellAccount.currentTradeCoin.balance.free} ${this.sellAccount.currentTradeCoin.token} is not enough to sell`)
             okToTrade = false
+        } else if (this.buyAccount.currentAskQty < this.tradeInfo.coinQuantityAtBuy) {
+            console.warn(`Current ask volume: ${this.buyAccount.currentAskQty} < ${this.tradeInfo.coinQuantityAtBuy}`)
         }
 
         return okToTrade
@@ -57,8 +59,8 @@ export class AutoTrader {
         let result = false
         if (this.testMode) {
             console.log('trading in test mode (with +- 0.00000500)...');
-            // this.tradeInfo.sellPrice += 0.00000500
-            // this.tradeInfo.buyPrice -= 0.00000500
+            this.tradeInfo.sellPrice += 0.00000500
+            this.tradeInfo.buyPrice -= 0.00000500
         }
 
         let okToTrade = await this.tradable()
