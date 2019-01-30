@@ -24,20 +24,21 @@ export class BotService {
     runTradeBot() {
         // Initialize the bot options
         var tradeBotOptions = new TradeBotOptions()
-        tradeBotOptions.tradeCoins = config['tradeCoins']
+        tradeBotOptions.tradeProfiles = config['tradeProfiles']
         tradeBotOptions.baseCoin = config['baseCoin']
         tradeBotOptions.isAutoTrading = config['isAutoTrading']
         tradeBotOptions.inTestMode = config['testMode']
         tradeBotOptions.autoBalance = config['autoBalance']
 
-        var tradingPlatforms = config['tradingPlatforms']
+        let tradingPlatforms = config['tradingPlatforms']
 
-        tradingPlatforms.forEach((tradingPlatform) => {
-            console.log(`Adding ${tradingPlatform.name}`)
-            tradeBotOptions.tradeAccounts.push(new TradeAccount(
-                tradingPlatform,
-                'ADA',
-                tradeBotOptions.baseCoin))
+        tradeBotOptions.tradeProfiles.forEach(profile => {
+            profile.tradeAccounts = []
+            profile.exchanges.forEach(exchange => {
+                profile.tradeAccounts.push(new TradeAccount(
+                    tradingPlatforms.filter(x => x.name === exchange)[0], profile.token, profile.baseCoin
+                ))
+            })
         })
 
         // Initialize the bot

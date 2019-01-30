@@ -26,38 +26,38 @@ export class TradeBot {
     async execute() {
         let testCount = 1
         try {
+            console.log('starting robot...')
             let previousColor = 'green'
             let transNumber = 1
             const delay = time => new Promise(res => setTimeout(() => res(), time));
             var errorPlatform = undefined
             while (true) {
-                for (let i = 0; i < this.tradebotOptions.tradeCoins.length; i++) {
+                for (const profile of this.tradebotOptions.tradeProfiles) {
+                    // for this.tradebotOptions.tradeProfiles.forEach(async profile => {
                     try {
-                        let currentTradeCoin = this.tradebotOptions.tradeCoins[i]
-                        this.tradebotOptions.currentTradeCoin = currentTradeCoin
-                        let tradeInfoAnalyzer = new TradeInfoAnalyzer(this.tradebotOptions)
+                        let tradeInfoAnalyzer = new TradeInfoAnalyzer(profile)
                         await tradeInfoAnalyzer.updateCoinPrices()
                         let tradeInfo = tradeInfoAnalyzer.analyzeFixedMode(
-                            this.currentTradeCoin.fixedQuantity,
-                            this.currentTradeCoin.plusPointToWin)
+                            profile.fixedQuantity,
+                            profile.plusPointToWin)
 
                         let date = new Date().toLocaleString()
                         let content =
-                            `${date} - ${this.currentTradeCoin.token} - ${this.buyAccount.tradingPlatform.id}: ${this.buyAccount.currentAskPrice.toFixed(8)} - ` +
-                            `${this.sellAccount.tradingPlatform.id}: ${this.sellAccount.currentBidPrice.toFixed(8)} - ` +
+                            `${date} - ${profile.token} - ${profile.buyAccount.tradingPlatform.id}: ${profile.buyAccount.currentAskPrice.toFixed(8)} - ` +
+                            `${profile.sellAccount.tradingPlatform.id}: ${profile.sellAccount.currentBidPrice.toFixed(8)} - ` +
                             `B-A: ${tradeInfo.deltaBidAsk.toFixed(8)} - ` +
                             `BTC Profit: ${tradeInfo.baseCoinProfit.toFixed(8)} - ` +
                             `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`
 
                         let jsonContent = {
-                            coin: this.currentTradeCoin.token,
+                            coin: profile.token,
                             sellAccount: {
-                                platform: this.sellAccount.tradingPlatform.id,
-                                sellPrice: this.sellAccount.currentBidPrice.toFixed(8)
+                                platform: profile.sellAccount.tradingPlatform.id,
+                                sellPrice: profile.sellAccount.currentBidPrice.toFixed(8)
                             },
                             buyAccount: {
-                                platform: this.buyAccount.tradingPlatform.id,
-                                buyPrice: this.buyAccount.currentAskPrice.toFixed(8)
+                                platform: profile.buyAccount.tradingPlatform.id,
+                                buyPrice: profile.buyAccount.currentAskPrice.toFixed(8)
                             },
                             bidask: tradeInfo.deltaBidAsk.toFixed(8),
                             profit: tradeInfo.baseCoinProfit.toFixed(8),
@@ -76,13 +76,13 @@ export class TradeBot {
                         this.io.emit('price', content)
                         this.io.emit('pricejson', JSON.stringify(jsonContent))
 
-                        if (tradeInfo.deltaBidAsk >= this.currentTradeCoin.expectedDelta) {
+                        if (tradeInfo.deltaBidAsk >= profile.expectedDelta) {
                             if (this.tradebotOptions.isAutoTrading) {
                                 console.log('auto trading ...')
                                 let trader = new AutoTrader(
                                     this.tradebotOptions.inTestMode,
-                                    this.tradebotOptions.sellAccount,
-                                    this.tradebotOptions.buyAccount,
+                                    profile.sellAccount,
+                                    profile.buyAccount,
                                     tradeInfo,
                                     transNumber,
                                     errorPlatform
@@ -108,8 +108,8 @@ export class TradeBot {
 
                             let trader = new AutoTrader(
                                 this.tradebotOptions.inTestMode,
-                                this.tradebotOptions.sellAccount,
-                                this.tradebotOptions.buyAccount,
+                                profile.sellAccount,
+                                profile.buyAccount,
                                 tradeInfo,
                                 'AUTO',
                                 errorPlatform
@@ -149,16 +149,5 @@ export class TradeBot {
         if (this.tradebotOptions.inTestMode && testCount <= 0) {
             process.exit()
         }
-    }
-
-    // getters
-    get currentTradeCoin() {
-        return this.tradebotOptions.currentTradeCoin
-    }
-    get buyAccount() {
-        return this.tradebotOptions.buyAccount
-    }
-    get sellAccount() {
-        return this.tradebotOptions.sellAccount
     }
 }

@@ -6,16 +6,16 @@ import { TradeBotOptions } from './TradeBotOptions'
 import { TradeInfo } from './TradeInfo'
 
 export class TradeInfoAnalyzer {
-    constructor(tradebotOptions) {
-        this.tradebotOptions = tradebotOptions
-        this.tradebotOptions.tradeAccounts.forEach(tradeAccount => {
-            tradeAccount.updateCurrentTradeCoin(this.tradebotOptions.currentTradeCoin.token)
+    constructor(tradeProfile) {
+        this.tradeProfile = tradeProfile
+        this.tradeProfile.tradeAccounts.forEach(tradeAccount => {
+            tradeAccount.updateCurrentTradeCoin(this.tradeProfile.token)
         })
     }
 
     async updateCoinPrices() {
-        for (let i = 0; i < this.tradeAccounts.length; i++) {
-            await this.tradeAccounts[i].updatePrices()
+        for (const tradeAccount of this.tradeProfile.tradeAccounts) {
+            await tradeAccount.updatePrices();
         }
 
         this.analyzeFlow()
@@ -25,8 +25,8 @@ export class TradeInfoAnalyzer {
         var accHasMaxBidPrice = _.last(_.sortBy(this.tradeAccounts, ['currentBidPrice']))
         var accHasMinAskPrice = _.first(_.sortBy(this.tradeAccounts, ['currentAskPrice']))
 
-        this.tradebotOptions.sellAccount = accHasMaxBidPrice
-        this.tradebotOptions.buyAccount = accHasMinAskPrice
+        this.tradeProfile.sellAccount = accHasMaxBidPrice
+        this.tradeProfile.buyAccount = accHasMinAskPrice
 
     }
 
@@ -62,14 +62,14 @@ export class TradeInfoAnalyzer {
 
     // Getters
     get tradeAccounts() {
-        return this.tradebotOptions.tradeAccounts
+        return this.tradeProfile.tradeAccounts
     }
 
     get sellAccount() {
-        return this.tradebotOptions.sellAccount
+        return this.tradeProfile.sellAccount
     }
 
     get buyAccount() {
-        return this.tradebotOptions.buyAccount
+        return this.tradeProfile.buyAccount
     }
 }
