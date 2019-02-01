@@ -13,6 +13,9 @@ import {
 import {
     emailHelper
 } from './helper/EmailHelper'
+import {
+    KafkaClient
+} from './KafkaClient'
 
 export class BotService {
     constructor(io) {
@@ -45,6 +48,14 @@ export class BotService {
         var tradeBot = new TradeBot(tradeBotOptions, this.io)
 
         // Run the bot
-        tradeBot.execute()
+        // tradeBot.execute()
+
+        //Test kafka
+        let kafkaClient = new KafkaClient('192.168.1.109:9092')
+        kafkaClient.producer.on('ready', () => {
+            kafkaClient.producer.send([{topic: 'senz', messages: 'Tuyet voi', partition: 0}], (err, data) => {
+                console.log(data);
+            })
+        })
     }
 }
