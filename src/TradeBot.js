@@ -14,12 +14,16 @@ import {
     TradingError
 } from './errors/TradingError'
 import chalk from 'chalk'
+import {
+    KafkaClient
+} from './KafkaClient'
 
 export class TradeBot {
     constructor(tradebotOptions, io) {
         this.tradebotOptions = tradebotOptions
         this.timeLeftToSendEmail = 0
         this.io = io
+        this.createKafkaClient();
         console.log('TradeBot initialized...')
     }
 
@@ -77,6 +81,13 @@ export class TradeBot {
 
                         if (tradeInfo.deltaBidAsk >= profile.expectedDelta) {
                             console.log(chalk.bgGreenBright(chalk.black(content)))
+                            this.kafkaClient.producer.send([{
+                                topic: 'matchedTransactions',
+                                messages: content,
+                                partition: 0
+                            }], (error, data) => {
+                                console.log(data);
+                            })
                             if (this.tradebotOptions.isAutoTrading) {
                                 console.log('auto trading ...')
                                 let trader = new AutoTrader(
@@ -151,6 +162,32 @@ export class TradeBot {
     quitInTestMode(testCount) {
         if (this.tradebotOptions.inTestMode && testCount <= 0) {
             process.exit()
+        }
+    }
+
+    createKafkaClient() {
+        // Enabling Kafka client if needed
+        if (this.tradebotOptions.usingKafka) {
+            console.log("Connecting to Kafka Broker...")
+            this.kafkaClient = new KafkaClient(this.tradebotOptions.kafkaClient)
+            this.kafkaClient.producer.on('error', (error) => {
+                console.log(error);
+            })
+            this.kafkaClient.producer.on('ready', () => {
+                console.log(`Connected to Kafka broker ${this.tradebotOptions.kafkaClient}`)
+                let topic = [{
+                    topic: 'matchedTransactions',
+                    partitions: 1,
+                    replicationFactor: 1,
+                    configEntries: [{
+                        name: 'compression.type',
+                        value: 'gzip'
+                    }]
+                }];
+                this.kafkaClient.client.createTopics(topic, (error, result) => {
+                    console.log(result);
+                })
+            })
         }
     }
 }
