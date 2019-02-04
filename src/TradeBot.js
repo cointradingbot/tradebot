@@ -53,16 +53,19 @@ export class TradeBot {
                             `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`
 
                         let jsonContent = {
-                            coin: profile.token,
+                            dateTime: date,
+                            token: profile.token,
                             sellAccount: {
-                                platform: profile.sellAccount.tradingPlatform.id,
-                                sellPrice: profile.sellAccount.currentBidPrice.toFixed(8)
+                                exchange: profile.sellAccount.tradingPlatform.id,
+                                sellPrice: profile.sellAccount.currentBidPrice.toFixed(8),
+                                volume: profile.sellAccount.currentBidQty
                             },
                             buyAccount: {
-                                platform: profile.buyAccount.tradingPlatform.id,
-                                buyPrice: profile.buyAccount.currentAskPrice.toFixed(8)
+                                exchange: profile.buyAccount.tradingPlatform.id,
+                                buyPrice: profile.buyAccount.currentAskPrice.toFixed(8),
+                                volume: profile.buyAccount.currentAskQty
                             },
-                            bidask: tradeInfo.deltaBidAsk.toFixed(8),
+                            delta: tradeInfo.deltaBidAsk.toFixed(8),
                             profit: tradeInfo.baseCoinProfit.toFixed(8),
                             coinQty: tradeInfo.coinQuantityAtSell
                         }
@@ -83,7 +86,7 @@ export class TradeBot {
                             console.log(chalk.bgGreenBright(chalk.black(content)))
                             this.kafkaClient.producer.send([{
                                 topic: 'matchedTransactions',
-                                messages: content,
+                                messages: JSON.stringify(jsonContent),
                                 partition: 0
                             }], (error, data) => {
                                 console.log(data);
