@@ -11,7 +11,9 @@
             "preLaunchTask": "compile",
             "runtimeExecutable": "nodemon",
             "program": "${workspaceRoot}/src/index.js",
-            "outFiles": ["${workspaceRoot}/dist/**/*.js"]
+            "outFiles": ["${workspaceRoot}/dist/**/*.js"],
+            "console": "integratedTerminal",
+            "smartStep": true
         }
     ]
 }
