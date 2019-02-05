@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "babel-node": "babel-node --presets=latest ./src/index.js",
-    "start": "nodemon --exec npm run babel-node -- ./src/index.js --debug",
+    "babel-node": "nodemon --exec babel-node ./src/index.js",
+    "start": "nodemon --exec babel-node ./src/index.js",
     "node": "node ./dist/index.js",
-    "build": "babel ./src -d ./dist --source-maps"
+    "compile": "babel ./src --out-dir ./dist --source-maps"
   },
   "author": "Phi Huynh",
   "license": "MIT",
@@ -27,20 +27,13 @@
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-jest": "^22.2.2",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-latest": "^6.24.1",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
     "jest": "^22.2.2",
     "jest-cli": "^22.2.2",
     "nodemon": "^1.18.9",
     "regenerator-runtime": "^0.11.1"
-  },
-  "babel": {
-    "presets": [
-      "latest"
-    ]
   }
 }

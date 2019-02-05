@@ -85,7 +85,7 @@ export class TradeBot {
                         if (tradeInfo.deltaBidAsk >= profile.expectedDelta) {
                             console.log(chalk.bgGreenBright(chalk.black(content)))
                             this.kafkaClient.producer.send([{
-                                topic: 'matchedTransactions',
+                                topic: 'matchedtransactions',
                                 messages: JSON.stringify(jsonContent),
                                 partition: 0
                             }], (error, data) => {
@@ -179,7 +179,7 @@ export class TradeBot {
             this.kafkaClient.producer.on('ready', () => {
                 console.log(`Connected to Kafka broker ${this.tradebotOptions.kafkaClient}`)
                 let topic = [{
-                    topic: 'matchedTransactions',
+                    topic: 'matchedtransactions',
                     partitions: 1,
                     replicationFactor: 1,
                     configEntries: [{
