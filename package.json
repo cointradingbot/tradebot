@@ -13,6 +13,7 @@
   "author": "Phi Huynh",
   "license": "MIT",
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
     "@sendgrid/mail": "^6.2.1",
     "ccxt": "^1.18.156",
     "chalk": "^2.3.0",
