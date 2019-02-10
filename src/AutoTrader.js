@@ -34,7 +34,7 @@ export class AutoTrader {
         } else if (this.sellAccount.currentTradeCoin.balance.free < this.tradeInfo.coinQuantityAtSell) {
             console.warn(`${this.sellAccount.tradingPlatform.name}: ${this.sellAccount.currentTradeCoin.balance.free} ${this.sellAccount.currentTradeCoin.token} is not enough to sell`)
             okToTrade = false
-        } else if (this.buyAccount.currentAskQty < this.tradeInfo.coinQuantityAtBuy) {
+        } else if (this.buyAccount.currentAskQty !== undefined && this.buyAccount.currentAskQty < this.tradeInfo.coinQuantityAtBuy) {
             console.warn(`Current ask volume is too low: ${this.buyAccount.currentAskQty} < ${this.tradeInfo.coinQuantityAtBuy}`)
             okToTrade = false
         }

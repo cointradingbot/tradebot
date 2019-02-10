@@ -1,9 +1,6 @@
 import fetch from 'isomorphic-fetch' // for jest integration test
 import * as ccxt from 'ccxt'
 import {
-    supportedTradingPlatforms
-} from "./supportedTradingPlatforms";
-import {
     emailHelper
 } from './helper/EmailHelper'
 import {
@@ -19,8 +16,8 @@ export class TradeAccount {
         this.baseCoin = new Coin(baseCoin)
         this.currentTradeCoin = new Coin(coin)
         this.tradingFee = tradingPlatform.tradingFee
-
-        this.tradingPlatform = new supportedTradingPlatforms[tradingPlatform.name]({
+        let platform = eval(`ccxt.${tradingPlatform.name}`)
+        this.tradingPlatform = new platform({
             apiKey: tradingPlatform.api_key,
             secret: tradingPlatform.api_secret
         })
@@ -34,13 +31,22 @@ export class TradeAccount {
     }
 
     async updatePrices() {
-        // let result = await this.tradingPlatform.fetchTicker(`${this.currentTradeCoin.token}/${this.baseCoin.token}`)
-        let result = await this.tradingPlatform.fetchOrderBook(`${this.currentTradeCoin.token}/${this.baseCoin.token}`)
 
-        this.currentAskPrice = result.asks[0][0]
-        this.currentAskQty = result.asks[0][1]
-        this.currentBidPrice = result.bids[0][0]
-        this.currentBidQty = result.bids[0][1]
+        try {
+            let result = await this.tradingPlatform.fetchOrderBook(`${this.currentTradeCoin.token}/${this.baseCoin.token}`)
+
+            this.currentAskPrice = result.asks[0][0]
+            this.currentAskQty = result.asks[0][1]
+            this.currentBidPrice = result.bids[0][0]
+            this.currentBidQty = result.bids[0][1]
+
+        } catch {
+            let result = await this.tradingPlatform.fetchTicker(`${this.currentTradeCoin.token}/${this.baseCoin.token}`)
+            this.currentAskPrice = result.ask
+            this.currentAskQty = result.askVolume
+            this.currentBidPrice = result.bid
+            this.currentBidQty = result.bidVolume
+        }
     }
 
     async updateBalances() {
