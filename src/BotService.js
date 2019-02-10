@@ -33,14 +33,15 @@ export class BotService {
         tradeBotOptions.kafkaClient = config['kafkaClient']
 
         let tradingPlatforms = config['tradingPlatforms']
-
         tradeBotOptions.tradeProfiles.forEach(profile => {
-            profile.tradeAccounts = []
-            profile.exchanges.forEach(exchange => {
-                profile.tradeAccounts.push(new TradeAccount(
-                    tradingPlatforms.filter(x => x.name === exchange)[0], profile.token, profile.baseCoin
-                ))
-            })
+            if (profile.active) {
+                profile.tradeAccounts = []
+                profile.exchanges.forEach(exchange => {
+                    profile.tradeAccounts.push(new TradeAccount(
+                        tradingPlatforms.filter(x => x.name === exchange)[0], profile.token, profile.baseCoin
+                    ))
+                })
+            }
         })
 
         // Initialize the bot

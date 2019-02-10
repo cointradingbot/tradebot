@@ -17,7 +17,8 @@
         "plusPointToWin": 0.00000001,
         "expectedDelta": 0.00000020,
         "baseCoin": "BTC",
-        "exchanges": ["binance", "rightbtc"]
+        "exchanges": ["binance", "rightbtc"],
+        "active": true
     }],
     "baseCoin": "BTC",
     "testMode": true,

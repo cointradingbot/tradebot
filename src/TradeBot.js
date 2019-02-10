@@ -35,8 +35,10 @@ export class TradeBot {
             let transNumber = 1
             const delay = time => new Promise(res => setTimeout(() => res(), time));
             var errorPlatform = undefined
+            let activeProfiles = this.tradebotOptions.tradeProfiles.filter(profile => profile.active === true)
+
             while (true) {
-                for (const profile of this.tradebotOptions.tradeProfiles) {
+                for (const profile of activeProfiles) {
                     try {
                         let tradeInfoAnalyzer = new TradeInfoAnalyzer(profile)
                         await tradeInfoAnalyzer.updateCoinPrices()
