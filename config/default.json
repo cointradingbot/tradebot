@@ -12,12 +12,12 @@
     "usingKafka": true,
     "kafkaClient": "192.168.1.5:9092",
     "tradeProfiles": [{
-        "token": "DLT",
+        "token": "ZIL",
         "fixedQuantity": 1000,
         "plusPointToWin": 0.00000001,
         "expectedDelta": 0.00000020,
         "baseCoin": "BTC",
-        "exchanges": ["binance", "rightbtc"],
+        "exchanges": [ "bittrex", "huobipro"],
         "active": true
     }],
     "baseCoin": "BTC",
@@ -87,6 +87,13 @@
         },
         {
             "name": "bitz",
+            "bitcoinTransferFee": 0.001,
+            "tradingFee": 0.25,
+            "api_key": "API_KEY",
+            "api_secret": "API_SECRET"
+        },
+        {
+            "name": "binancedex",
             "bitcoinTransferFee": 0.001,
             "tradingFee": 0.25,
             "api_key": "API_KEY",
