@@ -9,20 +9,21 @@
     "isAutoTrading": false,
     "tradeFlow": "AutoSwitch",
     "autoBalance": false,
-    "usingKafka": true,
+    "usingKafka": false,
     "kafkaClient": "192.168.1.5:9092",
     "tradeProfiles": [{
-        "token": "ZIL",
+        "token": "ONE",
         "fixedQuantity": 1000,
         "plusPointToWin": 0.00000001,
         "expectedDelta": 0.00000020,
-        "baseCoin": "BTC",
-        "exchanges": [ "bittrex", "huobipro"],
+        "baseCoin": "BNB",
+        "exchanges": [ "binance", "binancedex"],
         "active": true
     }],
-    "baseCoin": "BTC",
+    "baseCoin": "BNB",
     "testMode": true,
-    "tradingPlatforms": [{
+    "tradingPlatforms": [
+        {
             "name": "binance",
             "bitcoinTransferFee": 0.0005,
             "tradingFee": 0.1,

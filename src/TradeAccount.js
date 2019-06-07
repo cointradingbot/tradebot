@@ -6,6 +6,7 @@ import {
 import {
     TradingError
 } from './errors/TradingError'
+import { TradingPlatform } from './TradingPlatform';
 
 export class TradeAccount {
     constructor(tradingPlatform, coin, baseCoin) {
@@ -16,14 +17,9 @@ export class TradeAccount {
         this.baseCoin = new Coin(baseCoin)
         this.currentTradeCoin = new Coin(coin)
         this.tradingFee = tradingPlatform.tradingFee
-        let platform = eval(`ccxt.${tradingPlatform.name}`)
-        this.tradingPlatform = new platform({
-            apiKey: tradingPlatform.api_key,
-            secret: tradingPlatform.api_secret
-        })
-
-        this.metaInfo = this.tradingPlatform.describe()
-        console.log(`Create account of ${this.tradingPlatform.id}`)
+        this.tradingPlatform = new TradingPlatform(tradingPlatform.name, tradingPlatform.api_key, tradingPlatform.api_secret)
+        
+        console.log(`Create account of ${tradingPlatform.name}`)
     }
 
     updateCurrentTradeCoin(coin) {
@@ -33,15 +29,15 @@ export class TradeAccount {
     async updatePrices() {
 
         try {
-            let result = await this.tradingPlatform.fetchOrderBook(`${this.currentTradeCoin.token}/${this.baseCoin.token}`)
+            let result = await this.tradingPlatform.fetchOrderBook(this.currentTradeCoin.token, this.baseCoin.token)
 
-            this.currentAskPrice = result.asks[0][0]
-            this.currentAskQty = result.asks[0][1]
-            this.currentBidPrice = result.bids[0][0]
-            this.currentBidQty = result.bids[0][1]
+            this.currentAskPrice = Number(result.asks[0][0])
+            this.currentAskQty = Number(result.asks[0][1])
+            this.currentBidPrice = Number(result.bids[0][0])
+            this.currentBidQty = Number(result.bids[0][1])
 
         } catch {
-            let result = await this.tradingPlatform.fetchTicker(`${this.currentTradeCoin.token}/${this.baseCoin.token}`)
+            let result = await this.tradingPlatform.fetchTicker(this.currentTradeCoin.token, this.baseCoin.token)
             this.currentAskPrice = result.ask
             this.currentAskQty = result.askVolume
             this.currentBidPrice = result.bid

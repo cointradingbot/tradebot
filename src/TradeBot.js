@@ -48,8 +48,8 @@ export class TradeBot {
 
                         let date = new Date().toLocaleString()
                         let content =
-                            `${date} - ${profile.token} - ${profile.buyAccount.tradingPlatform.id}: ${profile.buyAccount.currentAskPrice.toFixed(8)} - ` +
-                            `${profile.sellAccount.tradingPlatform.id}: ${profile.sellAccount.currentBidPrice.toFixed(8)} - ` +
+                            `${date} - ${profile.token} - ${profile.buyAccount.tradingPlatform.name}: ${profile.buyAccount.currentAskPrice.toFixed(8)} - ` +
+                            `${profile.sellAccount.tradingPlatform.name}: ${profile.sellAccount.currentBidPrice.toFixed(8)} - ` +
                             `B-A: ${tradeInfo.deltaBidAsk.toFixed(8)} - ` +
                             `BTC Profit: ${tradeInfo.baseCoinProfit.toFixed(8)} - ` +
                             `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`
@@ -58,12 +58,12 @@ export class TradeBot {
                             dateTime: date,
                             token: profile.token,
                             sellAccount: {
-                                exchange: profile.sellAccount.tradingPlatform.id,
+                                exchange: profile.sellAccount.tradingPlatform.name,
                                 sellPrice: profile.sellAccount.currentBidPrice.toFixed(8),
                                 volume: profile.sellAccount.currentBidQty
                             },
                             buyAccount: {
-                                exchange: profile.buyAccount.tradingPlatform.id,
+                                exchange: profile.buyAccount.tradingPlatform.name,
                                 buyPrice: profile.buyAccount.currentAskPrice.toFixed(8),
                                 volume: profile.buyAccount.currentAskQty
                             },
@@ -86,13 +86,13 @@ export class TradeBot {
 
                         if (tradeInfo.deltaBidAsk >= profile.expectedDelta) {
                             console.log(chalk.bgGreenBright(chalk.black(content)))
-                            this.kafkaClient.producer.send([{
-                                topic: 'matchedtransactions',
-                                messages: JSON.stringify(jsonContent),
-                                partition: 0
-                            }], (error, data) => {
-                                console.log(data);
-                            })
+                            // this.kafkaClient.producer.send([{
+                            //     topic: 'matchedtransactions',
+                            //     messages: JSON.stringify(jsonContent),
+                            //     partition: 0
+                            // }], (error, data) => {
+                            //     console.log(data);
+                            // })
                             if (this.tradebotOptions.isAutoTrading) {
                                 console.log('auto trading ...')
                                 let trader = new AutoTrader(
