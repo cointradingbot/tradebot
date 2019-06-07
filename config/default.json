@@ -15,7 +15,7 @@
         "token": "ONE",
         "fixedQuantity": 1000,
         "plusPointToWin": 0.00000001,
-        "expectedDelta": 0.00000020,
+        "expectedDelta": 0.00000199,
         "baseCoin": "BNB",
         "exchanges": [ "binance", "binancedex"],
         "active": true
@@ -96,9 +96,11 @@
         {
             "name": "binancedex",
             "bitcoinTransferFee": 0.001,
-            "tradingFee": 0.25,
+            "tradingFee": 0.1,
             "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
+            "api_secret": "API_SECRET",
+            "public_key": "pk",
+            "private_key": "pk"
         }
     ]
 }

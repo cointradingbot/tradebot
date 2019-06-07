@@ -17,7 +17,7 @@ export class TradeAccount {
         this.baseCoin = new Coin(baseCoin)
         this.currentTradeCoin = new Coin(coin)
         this.tradingFee = tradingPlatform.tradingFee
-        this.tradingPlatform = new TradingPlatform(tradingPlatform.name, tradingPlatform.api_key, tradingPlatform.api_secret)
+        this.tradingPlatform = new TradingPlatform(tradingPlatform.name, tradingPlatform.api_key, tradingPlatform.api_secret, tradingPlatform.public_key, tradingPlatform.private_key)
         
         console.log(`Create account of ${tradingPlatform.name}`)
     }

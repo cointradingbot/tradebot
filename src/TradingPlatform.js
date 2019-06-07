@@ -2,11 +2,11 @@ import { BinanceDEXAdaptor } from './adaptors/BinanceDEXAdaptor';
 import { CCXTAdaptor } from './adaptors/CCXTAdaptor';
 
 export class TradingPlatform {
-    constructor(name, apiKey, secret, privateKey) {
+    constructor(name, apiKey, secret, publicKey, privateKey) {
         switch (name) {
             case "binancedex":
                 // Binance DEX adaptor
-                this.adaptor = new BinanceDEXAdaptor(name, privateKey)
+                this.adaptor = new BinanceDEXAdaptor(publicKey, privateKey)
                 break;
             default:
                 // ccxt adaptor
@@ -23,5 +23,8 @@ export class TradingPlatform {
     }
     async fetchTicker(pair) {
         return await this.adaptor.fetchTicker(token, basedToken)
+    }
+    async createOrder(){
+        return await this.adaptor.createOrder()
     }
 }
