@@ -26,11 +26,8 @@ export class BinanceDEXAdaptor {
     async fetchBalance() {
 
     }
-    async createOrder() {
-        try {
-            await this.bnbClient.placeOrder(this.publicKey, 'ONE-5F9_BNB', 1, 0.00070000, 1000, 1)
-        } catch (error) {
-            console.log(error)
-        }
+    async createOrder(token, basedToken, quantity, price, side) {
+        let sideId = side === 'buy' ? 1 : 2
+        await this.bnbClient.placeOrder(this.publicKey, `${this.tokens[token]}_${basedToken}`, sideId, price, quantity)
     }
 }

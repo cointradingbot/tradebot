@@ -54,8 +54,7 @@ export class TradeAccount {
 
     async buy(coinQuantityAtBuy, buyPrice, transNumber) {
         try {
-            await this.tradingPlatform.createOrder(
-                `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'buy', coinQuantityAtBuy, buyPrice, {})
+            await this.tradingPlatform.createOrder(this.currentTradeCoin.token, this.baseCoin.token, coinQuantityAtBuy, buyPrice, 'buy')
             let content = `${this.tradingPlatform.name}: Buy ordered ${coinQuantityAtBuy} ${this.currentTradeCoin.token}, price: ${buyPrice.toFixed(8)}`
             if (transNumber !== null) {
                 content = `${transNumber} - ${content}`
@@ -68,9 +67,7 @@ export class TradeAccount {
 
     async sell(coinQuantityAtSell, sellPrice, transNumber) {
         try {
-            await this.tradingPlatform.createOrder(
-                `${this.currentTradeCoin.token}/${this.baseCoin.token}`, 'limit', 'sell', coinQuantityAtSell, sellPrice, {})
-
+            await this.tradingPlatform.createOrder(this.currentTradeCoin.token, this.baseCoin.token, coinQuantityAtSell, sellPrice, 'sell')
             let content = `${this.tradingPlatform.name}: Sell ordered ${coinQuantityAtSell} ${this.currentTradeCoin.token}, price: ${sellPrice.toFixed(8)}`
             if (transNumber !== null) {
                 content = `${transNumber} - ${content}`

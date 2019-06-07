@@ -14,4 +14,9 @@ export class CCXTAdaptor {
         let result = await this.platform.fetchOrderBook(`${token}/${basedToken}`)
         return result;
     }
+    
+    async createOrder(token, basedToken, quantity, price, side) {
+        await this.platform.createOrder(`${token}/${basedToken}`, 'limit', side, quantity, price, {})
+    }
+
 }
