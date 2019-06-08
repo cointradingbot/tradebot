@@ -16,11 +16,13 @@ export class TradingPlatform {
         this.name = name
         // this.fetchBalance = this.adaptor.fetchBalance
     }
-
+    async fetchBalance(token, basedToken){
+        return await this.adaptor.fetchBalance(token, basedToken)
+    }
     async fetchOrderBook(token, basedToken) {
         return await this.adaptor.fetchOrderBook(token, basedToken)
     }
-    async fetchTicker(pair) {
+    async fetchTicker(token, basedToken) {
         return await this.adaptor.fetchTicker(token, basedToken)
     }
     async createOrder(token, basedToken, quantity, price, side){

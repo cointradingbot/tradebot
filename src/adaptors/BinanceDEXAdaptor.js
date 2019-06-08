@@ -7,7 +7,8 @@ export class BinanceDEXAdaptor {
             baseURL: 'https://dex.binance.org'
         })
         this.tokens = {
-            'ONE': 'ONE-5F9'
+            'ONE': 'ONE-5F9',
+            'GTO': 'GTO-908'
         }
         this.publicKey = publicKey
 
@@ -23,11 +24,17 @@ export class BinanceDEXAdaptor {
     async fetchTicker(pair) {
         // let data = await this.httpClient.get('api/v1/depth?symbol=ONE-5F9_BNB')
     }
-    async fetchBalance() {
-
+    async fetchBalance(token, basedToken) {
+        let result = await this.httpClient.get(`api/v1/account/${this.publicKey}`)
+        let returnData = {
+            token: result.data.balances.filter(item => item.symbol === this.tokens[token])[0],
+            basedToken: result.data.balances.filter(item => item.symbol === basedToken)[0]
+        }
+        return returnData
     }
     async createOrder(token, basedToken, quantity, price, side) {
         let sideId = side === 'buy' ? 1 : 2
-        await this.bnbClient.placeOrder(this.publicKey, `${this.tokens[token]}_${basedToken}`, sideId, price, quantity)
+        let result = await this.bnbClient.placeOrder(this.publicKey, `${this.tokens[token]}_${basedToken}`, sideId, price, quantity)
+        console.log(JSON.stringify(result))
     }
 }

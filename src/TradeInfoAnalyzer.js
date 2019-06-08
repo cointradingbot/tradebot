@@ -1,16 +1,23 @@
 import '@babel/polyfill'
 import * as ccxt from 'ccxt'
-import { bittrex } from 'ccxt';
+import {
+    bittrex
+} from 'ccxt';
 import _ from 'lodash'
-import { TradeBotOptions } from './TradeBotOptions'
-import { TradeInfo } from './TradeInfo'
+import {
+    TradeBotOptions
+} from './TradeBotOptions'
+import {
+    TradeInfo
+} from './TradeInfo'
 
 export class TradeInfoAnalyzer {
-    constructor(tradeProfile) {
+    constructor(tradeProfile, testMode) {
         this.tradeProfile = tradeProfile
         this.tradeProfile.tradeAccounts.forEach(tradeAccount => {
             tradeAccount.updateCurrentTradeCoin(this.tradeProfile.token)
-        })
+        }),
+        this.testMode = testMode
     }
 
     async updateCoinPrices() {
@@ -22,8 +29,16 @@ export class TradeInfoAnalyzer {
     }
 
     analyzeFlow() {
-        var accHasMaxBidPrice = _.last(_.sortBy(this.tradeAccounts, ['currentBidPrice']))
-        var accHasMinAskPrice = _.first(_.sortBy(this.tradeAccounts, ['currentAskPrice']))
+        // var accHasMaxBidPrice = _.last(_.sortBy(this.tradeAccounts, ['currentBidPrice']))
+        // var accHasMinAskPrice = _.first(_.sortBy(this.tradeAccounts, ['currentAskPrice']))
+        let accHasMaxBidPrice = this.tradeAccounts.reduce((prev, current) => {
+            return (prev.currentBidPrice > current.currentBidPrice) ? prev : current
+        })
+        let accHasMinAskPrice = this.tradeAccounts
+            .filter(item => item.tradingPlatform.name !== accHasMaxBidPrice.tradingPlatform.name)
+            .reduce((prev, current) => {
+                return (prev.currentAskPrice < current.currentAskPrice) ? prev : current
+            })
 
         this.tradeProfile.sellAccount = accHasMaxBidPrice
         this.tradeProfile.buyAccount = accHasMinAskPrice
@@ -40,20 +55,25 @@ export class TradeInfoAnalyzer {
         let sellPrice = this.sellAccount.currentBidPrice - plusPointToWin
         let buyPrice = this.buyAccount.currentAskPrice + plusPointToWin
 
-        let bitcoinQuantityAtSell = sellPrice * coinQtyAtSell * (1 - this.sellAccount.tradingFee / 100)
-        let bitcoinQuantityAtBuy = buyPrice * coinQtyAtBuy * (1 + this.buyAccount.tradingFee / 100)
+        if (this.testMode) {
+            sellPrice += 0.00009000
+            buyPrice -= 0.00009000
+        }
 
-        let profit = bitcoinQuantityAtSell - bitcoinQuantityAtBuy
+        let basecoinQuantityAtSell = sellPrice * coinQtyAtSell * (1 - this.sellAccount.tradingFee / 100)
+        let basecoinQuantityAtBuy = buyPrice * coinQtyAtBuy * (1 + this.buyAccount.tradingFee / 100)
+
+        let profit = basecoinQuantityAtSell - basecoinQuantityAtBuy
 
         var tradeInfo = new TradeInfo()
         tradeInfo.deltaBidAsk = deltaBidAsk
         tradeInfo.deltaBidBid = deltaBidBid
-        tradeInfo.baseCoinQuantityAtSell = bitcoinQuantityAtSell
+        tradeInfo.baseCoinQuantityAtSell = basecoinQuantityAtSell
         tradeInfo.coinQuantityAtSell = coinQtyAtSell
-        tradeInfo.baseCoinQuantityAtBuy = bitcoinQuantityAtBuy
+        tradeInfo.baseCoinQuantityAtBuy = basecoinQuantityAtBuy
         tradeInfo.coinQuantityAtBuy = coinQtyAtBuy
         tradeInfo.coinProfit = 0
-        tradeInfo.baseCoinProfit = bitcoinQuantityAtSell - bitcoinQuantityAtBuy
+        tradeInfo.baseCoinProfit = basecoinQuantityAtSell - basecoinQuantityAtBuy
         tradeInfo.sellPrice = sellPrice
         tradeInfo.buyPrice = buyPrice
 

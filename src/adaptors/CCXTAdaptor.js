@@ -7,7 +7,15 @@ export class CCXTAdaptor {
             apiKey: apiKey,
             secret: secret
         })
+    }
 
+    async fetchBalance(token, basedToken) {
+        let result = await this.platform.fetchBalance()
+        let returnData = {
+            token: result[token],
+            basedToken: result[basedToken]
+        }
+        return returnData
     }
 
     async fetchOrderBook(token, basedToken) {

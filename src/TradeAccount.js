@@ -46,10 +46,11 @@ export class TradeAccount {
     }
 
     async updateBalances() {
-        console.log('updating balances ...')
-        let balance = await this.tradingPlatform.fetchBalance()
-        this.baseCoin.balance = balance[this.baseCoin.token]
-        this.currentTradeCoin.balance = balance[this.currentTradeCoin.token]
+        
+        let balance = await this.tradingPlatform.fetchBalance(this.currentTradeCoin.token, this.baseCoin.token)
+        this.baseCoin.balance = balance.basedToken
+        this.currentTradeCoin.balance = balance.token
+        console.log(`Balance status of ${this.tradingPlatform.name}: ${this.baseCoin.token}: ${this.baseCoin.balance.free}, ${this.currentTradeCoin.token}: ${this.currentTradeCoin.balance.free}`)
     }
 
     async buy(coinQuantityAtBuy, buyPrice, transNumber) {
@@ -67,7 +68,8 @@ export class TradeAccount {
 
     async sell(coinQuantityAtSell, sellPrice, transNumber) {
         try {
-            await this.tradingPlatform.createOrder(this.currentTradeCoin.token, this.baseCoin.token, coinQuantityAtSell, sellPrice, 'sell')
+            let result = await this.tradingPlatform.createOrder(this.currentTradeCoin.token, this.baseCoin.token, coinQuantityAtSell, sellPrice, 'sell')
+            console.log(JSON.stringify(result))
             let content = `${this.tradingPlatform.name}: Sell ordered ${coinQuantityAtSell} ${this.currentTradeCoin.token}, price: ${sellPrice.toFixed(8)}`
             if (transNumber !== null) {
                 content = `${transNumber} - ${content}`
