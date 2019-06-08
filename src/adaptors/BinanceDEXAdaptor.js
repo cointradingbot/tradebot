@@ -34,7 +34,6 @@ export class BinanceDEXAdaptor {
     }
     async createOrder(token, basedToken, quantity, price, side) {
         let sideId = side === 'buy' ? 1 : 2
-        let result = await this.bnbClient.placeOrder(this.publicKey, `${this.tokens[token]}_${basedToken}`, sideId, price, quantity)
-        console.log(JSON.stringify(result))
+        await this.bnbClient.placeOrder(this.publicKey, `${this.tokens[token]}_${basedToken}`, sideId, price, quantity)
     }
 }

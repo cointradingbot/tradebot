@@ -37,9 +37,11 @@ export class TradeBot {
             var errorPlatform = undefined
             let activeProfiles = this.tradebotOptions.tradeProfiles.filter(profile => profile.active === true)
 
-            // let testAccount = this.tradebotOptions.tradeProfiles[0].tradeAccounts[1]
-            // await testAccount.tradingPlatform.createOrder('ONE', 'USDT', 1000, 0.02000, 'buy')
+            // await delay(10000)
+            // let testAccount = this.tradebotOptions.tradeProfiles[0].tradeAccounts[0]
+            // await testAccount.tradingPlatform.createOrder('ONE', 'BNB', 500, 0.0007448, 'buy')
             // let balance = await testAccount.updateBalances()
+            // process.exit(1);
 
             while (true) {
                 for (const profile of activeProfiles) {

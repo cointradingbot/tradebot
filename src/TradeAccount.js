@@ -69,7 +69,6 @@ export class TradeAccount {
     async sell(coinQuantityAtSell, sellPrice, transNumber) {
         try {
             let result = await this.tradingPlatform.createOrder(this.currentTradeCoin.token, this.baseCoin.token, coinQuantityAtSell, sellPrice, 'sell')
-            console.log(JSON.stringify(result))
             let content = `${this.tradingPlatform.name}: Sell ordered ${coinQuantityAtSell} ${this.currentTradeCoin.token}, price: ${sellPrice.toFixed(8)}`
             if (transNumber !== null) {
                 content = `${transNumber} - ${content}`
