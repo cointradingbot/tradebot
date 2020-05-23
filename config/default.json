@@ -1,106 +1,144 @@
 {
-    "email": {
-        "apiKey": "API_KEY",
-        "emailTo": "EMAIL_TO",
-        "toName": "TO_NAME",
-        "emailFrom": "EMAIL_FROM",
-        "fromName": "FROM_NAME"
+  "email": {
+    "apiKey": "API_KEY",
+    "emailTo": "EMAIL_TO",
+    "toName": "TO_NAME",
+    "emailFrom": "EMAIL_FROM",
+    "fromName": "FROM_NAME"
+  },
+  "isAutoTrading": false,
+  "tradeFlow": "AutoSwitch",
+  "autoBalance": false,
+  "usingKafka": false,
+  "kafkaClient": "192.168.1.5:9092",
+  "tradeProfiles": [
+    {
+      "token": "ONE",
+      "fixedQuantity": 1000,
+      "plusPointToWin": 0.00000001,
+      "expectedDelta": 0.00000199,
+      "baseCoin": "BTC",
+      "exchanges": ["binance", "bitmax"],
+      "active": true
     },
-    "isAutoTrading": false,
-    "tradeFlow": "AutoSwitch",
-    "autoBalance": false,
-    "usingKafka": false,
-    "kafkaClient": "192.168.1.5:9092",
-    "tradeProfiles": [{
-        "token": "ONE",
-        "fixedQuantity": 1000,
-        "plusPointToWin": 0.00000001,
-        "expectedDelta": 0.00000199,
-        "baseCoin": "BNB",
-        "exchanges": [ "binance", "binancedex"],
-        "active": true
-    }],
-    "baseCoin": "BNB",
-    "testMode": true,
-    "tradingPlatforms": [
-        {
-            "name": "binance",
-            "bitcoinTransferFee": 0.0005,
-            "tradingFee": 0.1,
-            "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
-        },
-        {
-            "name": "rightbtc",
-            "bitcoinTransferFee": 0.001,
-            "tradingFee": 0.25,
-            "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
-        },
-        {
-            "name": "bittrex",
-            "bitcoinTransferFee": 0.001,
-            "tradingFee": 0.25,
-            "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
-        },
-        {
-            "name": "huobipro",
-            "bitcoinTransferFee": 0.001,
-            "tradingFee": 0.25,
-            "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
-        },
-        {
-            "name": "huobi",
-            "bitcoinTransferFee": 0.001,
-            "tradingFee": 0.25,
-            "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
-        },
-        {
-            "name": "upbit",
-            "bitcoinTransferFee": 0.001,
-            "tradingFee": 0.25,
-            "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
-        },
-        {
-            "name": "okex",
-            "bitcoinTransferFee": 0.001,
-            "tradingFee": 0.25,
-            "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
-        },
-        {
-            "name": "gateio",
-            "bitcoinTransferFee": 0.001,
-            "tradingFee": 0.25,
-            "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
-        },
-        {
-            "name": "digifinex",
-            "bitcoinTransferFee": 0.001,
-            "tradingFee": 0.25,
-            "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
-        },
-        {
-            "name": "bitz",
-            "bitcoinTransferFee": 0.001,
-            "tradingFee": 0.25,
-            "api_key": "API_KEY",
-            "api_secret": "API_SECRET"
-        },
-        {
-            "name": "binancedex",
-            "bitcoinTransferFee": 0.001,
-            "tradingFee": 0.1,
-            "api_key": "API_KEY",
-            "api_secret": "API_SECRET",
-            "public_key": "pk",
-            "private_key": "pk"
-        }
-    ]
+    {
+      "token": "ATOM",
+      "fixedQuantity": 1000,
+      "plusPointToWin": 0.00000001,
+      "expectedDelta": 0.00000199,
+      "baseCoin": "BTC",
+      "exchanges": ["binance", "bitforex"],
+      "active": false
+    }
+  ],
+  "baseCoin": "BTC",
+  "testMode": true,
+  "tradingPlatforms": [
+    {
+      "name": "binance",
+      "bitcoinTransferFee": 0.0005,
+      "tradingFee": 0.1,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET"
+    },
+    {
+      "name": "rightbtc",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.25,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET"
+    },
+    {
+      "name": "bittrex",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.25,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET"
+    },
+    {
+      "name": "huobipro",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.25,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET"
+    },
+    {
+      "name": "huobi",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.25,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET"
+    },
+    {
+      "name": "upbit",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.25,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET"
+    },
+    {
+      "name": "okex",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.25,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET"
+    },
+    {
+      "name": "gateio",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.25,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET"
+    },
+    {
+      "name": "digifinex",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.25,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET"
+    },
+    {
+      "name": "bitz",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.25,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET"
+    },
+    {
+      "name": "binancedex",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.1,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET",
+      "public_key": "pk",
+      "private_key": "pk"
+    },
+    {
+      "name": "bitmax",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.1,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET",
+      "public_key": "pk",
+      "private_key": "pk"
+    },
+    {
+      "name": "bitforex",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.1,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET",
+      "public_key": "pk",
+      "private_key": "pk"
+    },
+    {
+      "name": "bitz",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.1,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET",
+      "public_key": "pk",
+      "private_key": "pk"
+    }
+  ]
 }

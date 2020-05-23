@@ -17,7 +17,7 @@
     "@binance-chain/javascript-sdk": "^2.13.5",
     "@sendgrid/mail": "^6.2.1",
     "axios": "^0.19.0",
-    "ccxt": "^1.18.156",
+    "ccxt": "^1.28.3",
     "chalk": "^2.3.0",
     "config": "^1.29.4",
     "dotenv": "^4.0.0",
