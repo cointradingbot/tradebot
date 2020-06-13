@@ -19,16 +19,25 @@
       "expectedDelta": 0.00000199,
       "baseCoin": "BTC",
       "exchanges": ["binance", "bitmax"],
-      "active": true
+      "active": false
     },
     {
-      "token": "ATOM",
+      "token": "XVG",
+      "fixedQuantity": 1000,
+      "plusPointToWin": 0.00000001,
+      "expectedDelta": 0.00000199,
+      "baseCoin": "BTC",
+      "exchanges": ["binance", "bittrex"],
+      "active": false
+    },
+    {
+      "token": "MATIC",
       "fixedQuantity": 1000,
       "plusPointToWin": 0.00000001,
       "expectedDelta": 0.00000199,
       "baseCoin": "BTC",
       "exchanges": ["binance", "bitforex"],
-      "active": false
+      "active": true
     }
   ],
   "baseCoin": "BTC",
