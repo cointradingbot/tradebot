@@ -14,7 +14,7 @@
   "tradeProfiles": [
     {
       "token": "ONE",
-      "fixedQuantity": 1000,
+      "fixedQuantity": 100000,
       "plusPointToWin": 0.00000001,
       "expectedDelta": 0.00000199,
       "baseCoin": "USDT",

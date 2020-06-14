@@ -91,7 +91,10 @@ export class TradeBot {
             this.io.emit("price", content);
             this.io.emit("pricejson", JSON.stringify(jsonContent));
 
-            if (tradeInfo.deltaBidAsk >= profile.expectedDelta) {
+            if (
+              tradeInfo.deltaBidAsk >= profile.expectedDelta &&
+              tradeInfo.baseCoinProfit > 0
+            ) {
               console.log(chalk.bgGreenBright(chalk.black(content)));
               // this.kafkaClient.producer.send([{
               //     topic: 'matchedtransactions',
