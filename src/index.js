@@ -4,6 +4,7 @@ var path = require("path");
 var fs = require("fs");
 var https = require("https");
 var config = require("config");
+import "regenerator-runtime/runtime.js";
 
 const useHttps = config["useHttps"];
 
@@ -37,6 +38,7 @@ io.on("connection", (socket) => {
   });
 });
 
-const BotService = require("./BotService");
-
-new BotService.BotService(io).runTradeBot();
+(async () => {
+  const BotService = require("./BotService");
+  await new BotService.BotService(io).runTradeBot();
+})();

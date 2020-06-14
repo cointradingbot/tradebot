@@ -6,6 +6,17 @@
     "emailFrom": "EMAIL_FROM",
     "fromName": "FROM_NAME"
   },
+  "cosmos": {
+    "endpoint": "",
+    "key": "",
+    "databaseId": "Arbitrage",
+    "containerId": "Items",
+    "partitionKey": {
+      "kind": "Hash",
+      "paths": ["/category"]
+    }
+  },
+  "saveToCosmos": true,
   "isAutoTrading": false,
   "tradeFlow": "AutoSwitch",
   "autoBalance": false,

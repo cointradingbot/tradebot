@@ -1,9 +1,12 @@
 import { AutoTrader } from "./AutoTrader";
+import { CosmosClient } from "@azure/cosmos";
 import { emailHelper } from "./helper/EmailHelper";
 import { KafkaClient } from "./KafkaClient";
 import { TradeBotOptions } from "./TradeBotOptions";
 import { TradeInfoAnalyzer } from "./TradeInfoAnalyzer";
 import { TradingError } from "./errors/TradingError";
+import * as config from "config";
+import * as dbcontext from "./data/databaseContext";
 import chalk from "chalk";
 
 export class TradeBot {
@@ -11,6 +14,7 @@ export class TradeBot {
     this.tradebotOptions = tradebotOptions;
     this.timeLeftToSendEmail = 0;
     this.io = io;
+    this.container = undefined;
     this.createKafkaClient();
     console.log("TradeBot initialized...");
   }
@@ -78,8 +82,10 @@ export class TradeBot {
               profit: tradeInfo.baseCoinProfit.toFixed(8),
               coinQty: tradeInfo.coinQuantityAtSell,
               baseCoinQty: tradeInfo.baseCoinQuantityAtBuy,
+              category: "arbitrage",
             };
-
+            if (config["saveToCosmos"])
+              await this.container.items.create(jsonContent);
             // if (previousColor === 'green') {
             //     console.log(chalk.bgWhiteBright(chalk.black(content)))
             //     previousColor = 'cyan'
@@ -210,5 +216,17 @@ export class TradeBot {
         });
       });
     }
+  }
+
+  async connectDatabase() {
+    let cosmosConfig = config["cosmos"];
+    const { endpoint, key, databaseId, containerId } = cosmosConfig;
+    const client = new CosmosClient({ endpoint, key });
+    const database = client.database(databaseId);
+    const container = database.container(containerId);
+    this.container = container;
+
+    // Make sure Tasks database is already setup. If not, create it.
+    await dbcontext.create(client, databaseId, containerId);
   }
 }

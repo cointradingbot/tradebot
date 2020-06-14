@@ -13,6 +13,7 @@
   "author": "Phi Huynh",
   "license": "MIT",
   "dependencies": {
+    "@azure/cosmos": "^3.7.1",
     "@babel/polyfill": "^7.2.5",
     "@binance-chain/javascript-sdk": "^2.13.5",
     "@sendgrid/mail": "^6.2.1",
