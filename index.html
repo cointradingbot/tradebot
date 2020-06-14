@@ -2,86 +2,86 @@
 <html>
 
 <head>
-    <title>TradeBot</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <title>TradeBot</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font: 13px Helvetica, Arial;
-        }
+    body {
+      font: 13px Helvetica, Arial;
+    }
 
-        form {
-            background: #000;
-            padding: 3px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
+    form {
+      background: #000;
+      padding: 3px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
 
-        form input {
-            border: 0;
-            padding: 10px;
-            width: 90%;
-            margin-right: .5%;
-        }
+    form input {
+      border: 0;
+      padding: 10px;
+      width: 90%;
+      margin-right: .5%;
+    }
 
-        form button {
-            width: 9%;
-            background: rgb(130, 224, 255);
-            border: none;
-            padding: 10px;
-        }
+    form button {
+      width: 9%;
+      background: rgb(130, 224, 255);
+      border: none;
+      padding: 10px;
+    }
 
-        #messages {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            padding-bottom: 20px;
-        }
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      padding-bottom: 20px;
+    }
 
-        #messages li {
-            padding: 5px 10px;
-        }
+    #messages li {
+      padding: 5px 10px;
+    }
 
-        #messages li:nth-child(odd) {
-            background: #eee;
-        }
-    </style>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-        $(function () {
-            var socket = io();
-            $('form').submit(function () {
-                socket.emit('chat message', $('#m').val());
-                $('#m').val('');
-                return false;
-            });
-            socket.on('chat message', function (msg) {
-                $('#messages').append($('<li>').text(msg));
-            });
-            socket.on('price', function (msg) {
-                $('#messages').append($('<li>').text(msg));
-                window.scroll({ bottom: 40, left: 0, behavior: 'smooth' });
-            });
-        });
-    </script>
+    #messages li:nth-child(odd) {
+      background: #eee;
+    }
+  </style>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    $(function () {
+      var socket = io();
+      $('form').submit(function () {
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function (msg) {
+        $('#messages').append($('<li>').text(msg));
+      });
+      socket.on('price', function (msg) {
+        $('#messages').append($('<li>').text(msg));
+        window.scroll({ bottom: 40, left: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
 </head>
 
 <body>
-    <ul id="messages"></ul>
-    <form action="">
-        <input id="m" autocomplete="off" />
-        <button>Send</button>
-    </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-    </script>
+  <ul id="messages"></ul>
+  <form action="">
+    <input id="m" autocomplete="off" />
+    <button>Send</button>
+  </form>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+  </script>
 </body>
 
 </html>

@@ -50,17 +50,15 @@ export class TradeInfoAnalyzer {
     let sellPrice = this.sellAccount.currentBidPrice - plusPointToWin;
     let buyPrice = this.buyAccount.currentAskPrice + plusPointToWin;
 
-    if (this.testMode) {
-      sellPrice += 0.00009;
-      buyPrice -= 0.00009;
-    }
+    // if (this.testMode) {
+    //     sellPrice += 0.00009000
+    //     buyPrice -= 0.00009000
+    // }
 
     let basecoinQuantityAtSell =
       sellPrice * coinQtyAtSell * (1 - this.sellAccount.tradingFee / 100);
     let basecoinQuantityAtBuy =
       buyPrice * coinQtyAtBuy * (1 + this.buyAccount.tradingFee / 100);
-
-    let profit = basecoinQuantityAtSell - basecoinQuantityAtBuy;
 
     var tradeInfo = new TradeInfo();
     tradeInfo.deltaBidAsk = deltaBidAsk;
