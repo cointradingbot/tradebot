@@ -17,9 +17,9 @@
       "fixedQuantity": 1000,
       "plusPointToWin": 0.00000001,
       "expectedDelta": 0.00000199,
-      "baseCoin": "BTC",
-      "exchanges": ["binance", "bitmax"],
-      "active": false
+      "baseCoin": "USDT",
+      "exchanges": ["binance", "bitmax", "kucoin"],
+      "active": true
     },
     {
       "token": "XVG",
@@ -37,10 +37,10 @@
       "expectedDelta": 0.00000199,
       "baseCoin": "BTC",
       "exchanges": ["binance", "bitforex"],
-      "active": true
+      "active": false
     }
   ],
-  "baseCoin": "BTC",
+  "baseCoin": "USDT",
   "testMode": true,
   "tradingPlatforms": [
     {
@@ -142,6 +142,15 @@
     },
     {
       "name": "bitz",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.1,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET",
+      "public_key": "pk",
+      "private_key": "pk"
+    },
+    {
+      "name": "kucoin",
       "bitcoinTransferFee": 0.001,
       "tradingFee": 0.1,
       "api_key": "API_KEY",

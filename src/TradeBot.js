@@ -21,10 +21,11 @@ export class TradeBot {
       console.log("starting robot...");
       let previousColor = "green";
       let transNumber = 1;
-      const delay = time => new Promise(res => setTimeout(() => res(), time));
+      const delay = (time) =>
+        new Promise((res) => setTimeout(() => res(), time));
       var errorPlatform = undefined;
       let activeProfiles = this.tradebotOptions.tradeProfiles.filter(
-        profile => profile.active === true
+        (profile) => profile.active === true
       );
 
       // await delay(10000)
@@ -55,7 +56,9 @@ export class TradeBot {
                 profile.sellAccount.tradingPlatform.name
               }: ${profile.sellAccount.currentBidPrice.toFixed(8)} - ` +
               `B-A: ${tradeInfo.deltaBidAsk.toFixed(8)} - ` +
-              `BTC Profit: ${tradeInfo.baseCoinProfit.toFixed(8)} - ` +
+              `${
+                profile.sellAccount.baseCoin.token
+              } Profit: ${tradeInfo.baseCoinProfit.toFixed(8)} - ` +
               `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`;
 
             let jsonContent = {
@@ -64,16 +67,16 @@ export class TradeBot {
               sellAccount: {
                 exchange: profile.sellAccount.tradingPlatform.name,
                 sellPrice: profile.sellAccount.currentBidPrice.toFixed(8),
-                volume: profile.sellAccount.currentBidQty
+                volume: profile.sellAccount.currentBidQty,
               },
               buyAccount: {
                 exchange: profile.buyAccount.tradingPlatform.name,
                 buyPrice: profile.buyAccount.currentAskPrice.toFixed(8),
-                volume: profile.buyAccount.currentAskQty
+                volume: profile.buyAccount.currentAskQty,
               },
               delta: tradeInfo.deltaBidAsk.toFixed(8),
               profit: tradeInfo.baseCoinProfit.toFixed(8),
-              coinQty: tradeInfo.coinQuantityAtSell
+              coinQty: tradeInfo.coinQuantityAtSell,
             };
 
             // if (previousColor === 'green') {
@@ -178,7 +181,7 @@ export class TradeBot {
     if (this.tradebotOptions.usingKafka) {
       console.log("Connecting to Kafka Broker...");
       this.kafkaClient = new KafkaClient(this.tradebotOptions.kafkaClient);
-      this.kafkaClient.producer.on("error", error => {
+      this.kafkaClient.producer.on("error", (error) => {
         console.log(error);
       });
       this.kafkaClient.producer.on("ready", () => {
@@ -193,10 +196,10 @@ export class TradeBot {
             configEntries: [
               {
                 name: "compression.type",
-                value: "gzip"
-              }
-            ]
-          }
+                value: "gzip",
+              },
+            ],
+          },
         ];
         this.kafkaClient.client.createTopics(topic, (error, result) => {
           console.log(result);
