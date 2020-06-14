@@ -59,7 +59,7 @@ export class TradeBot {
               `${
                 profile.sellAccount.baseCoin.token
               } Profit: ${tradeInfo.baseCoinProfit.toFixed(8)} - ` +
-              `Coin Qt.: ${tradeInfo.coinQuantityAtSell}`;
+              `Qty: ${tradeInfo.coinQuantityAtSell}/${tradeInfo.baseCoinQuantityAtBuy}`;
 
             let jsonContent = {
               dateTime: date,
@@ -77,6 +77,7 @@ export class TradeBot {
               delta: tradeInfo.deltaBidAsk.toFixed(8),
               profit: tradeInfo.baseCoinProfit.toFixed(8),
               coinQty: tradeInfo.coinQuantityAtSell,
+              baseCoinQty: tradeInfo.baseCoinQuantityAtBuy,
             };
 
             // if (previousColor === 'green') {
