@@ -54,14 +54,14 @@ export class TradeBot {
             let date = new Date().toLocaleString();
             let content =
               `${date} - ${profile.token} - ${
-                profile.buyAccount.tradingPlatform.name
+              profile.buyAccount.tradingPlatform.name
               }: ${profile.buyAccount.currentAskPrice.toFixed(8)} - ` +
               `${
-                profile.sellAccount.tradingPlatform.name
+              profile.sellAccount.tradingPlatform.name
               }: ${profile.sellAccount.currentBidPrice.toFixed(8)} - ` +
               `B-A: ${tradeInfo.deltaBidAsk.toFixed(8)} - ` +
               `${
-                profile.sellAccount.baseCoin.token
+              profile.sellAccount.baseCoin.token
               } Profit: ${tradeInfo.baseCoinProfit.toFixed(8)} - ` +
               `Qty: ${tradeInfo.coinQuantityAtSell}/${tradeInfo.baseCoinQuantityAtBuy}`;
 
@@ -78,13 +78,13 @@ export class TradeBot {
                 buyPrice: profile.buyAccount.currentAskPrice.toFixed(8),
                 volume: profile.buyAccount.currentAskQty,
               },
-              delta: tradeInfo.deltaBidAsk.toFixed(8),
-              profit: tradeInfo.baseCoinProfit.toFixed(8),
+              delta: tradeInfo.deltaBidAsk,
+              profit: tradeInfo.baseCoinProfit,
               coinQty: tradeInfo.coinQuantityAtSell,
               baseCoinQty: tradeInfo.baseCoinQuantityAtBuy,
               category: "arbitrage",
             };
-            if (config["saveToCosmos"])
+            if (config["saveToCosmos"] && tradeInfo.baseCoinProfit > 0)
               await this.container.items.create(jsonContent);
             // if (previousColor === 'green') {
             //     console.log(chalk.bgWhiteBright(chalk.black(content)))
