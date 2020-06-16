@@ -110,8 +110,15 @@ export class TradeBot {
               // }], (error, data) => {
               //     console.log(data);
               // })
+
               if (this.tradebotOptions.isAutoTrading) {
                 console.log("auto trading ...");
+                // Change to real bid / ask
+                const quantities = [profile.sellAccount.currentBidQty, profile.buyAccount.currentAskQty, profile.fixedQuantity];
+                const realTradeQty = Math.min(...quantities);
+                tradeInfo.coinQuantityAtBuy = realTradeQty
+                tradeInfo.coinQuantityAtSell = realTradeQty
+
                 let trader = new AutoTrader(
                   this.tradebotOptions.inTestMode,
                   profile.sellAccount,

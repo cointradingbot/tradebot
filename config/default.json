@@ -13,7 +13,9 @@
     "containerId": "Items",
     "partitionKey": {
       "kind": "Hash",
-      "paths": ["/category"]
+      "paths": [
+        "/category"
+      ]
     }
   },
   "saveToCosmos": true,
@@ -29,7 +31,11 @@
       "plusPointToWin": 0.00000001,
       "expectedDelta": 0.00000199,
       "baseCoin": "USDT",
-      "exchanges": ["binance", "bitmax", "kucoin"],
+      "exchanges": [
+        "binance",
+        "bitmax",
+        "kucoin"
+      ],
       "active": true
     },
     {
@@ -37,8 +43,11 @@
       "fixedQuantity": 1000,
       "plusPointToWin": 0.00000001,
       "expectedDelta": 0.00000199,
-      "baseCoin": "BTC",
-      "exchanges": ["binance", "bittrex"],
+      "baseCoin": "USDT",
+      "exchanges": [
+        "binance",
+        "bittrex"
+      ],
       "active": false
     },
     {
@@ -47,7 +56,10 @@
       "plusPointToWin": 0.00000001,
       "expectedDelta": 0.00000199,
       "baseCoin": "BTC",
-      "exchanges": ["binance", "bitforex"],
+      "exchanges": [
+        "binance",
+        "bitforex"
+      ],
       "active": false
     }
   ],
