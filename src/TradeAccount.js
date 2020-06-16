@@ -16,7 +16,8 @@ export class TradeAccount {
       tradingPlatform.api_key,
       tradingPlatform.api_secret,
       tradingPlatform.public_key,
-      tradingPlatform.private_key
+      tradingPlatform.private_key,
+      tradingPlatform.password
     );
 
     console.log(`Create account of ${tradingPlatform.name}`);
@@ -54,8 +55,8 @@ export class TradeAccount {
       this.currentTradeCoin.token,
       this.baseCoin.token
     );
-    this.baseCoin.balance = balance.basedToken;
-    this.currentTradeCoin.balance = balance.token;
+    this.baseCoin.balance = balance.basedToken ?? { free: 0, total: 0, used: 0 };
+    this.currentTradeCoin.balance = balance.token ?? { free: 0, total: 0, used: 0 };
     console.log(
       `Balance status of ${this.tradingPlatform.name}: ${this.baseCoin.token}: ${this.baseCoin.balance.free}, ${this.currentTradeCoin.token}: ${this.currentTradeCoin.balance.free}`
     );
@@ -72,9 +73,9 @@ export class TradeAccount {
       );
       let content = `${
         this.tradingPlatform.name
-      }: Buy ordered ${coinQuantityAtBuy} ${
+        }: Buy ordered ${coinQuantityAtBuy} ${
         this.currentTradeCoin.token
-      }, price: ${buyPrice.toFixed(8)}`;
+        }, price: ${buyPrice.toFixed(8)}`;
       if (transNumber !== null) {
         content = `${transNumber} - ${content}`;
       }
@@ -98,9 +99,9 @@ export class TradeAccount {
       );
       let content = `${
         this.tradingPlatform.name
-      }: Sell ordered ${coinQuantityAtSell} ${
+        }: Sell ordered ${coinQuantityAtSell} ${
         this.currentTradeCoin.token
-      }, price: ${sellPrice.toFixed(8)}`;
+        }, price: ${sellPrice.toFixed(8)}`;
       if (transNumber !== null) {
         content = `${transNumber} - ${content}`;
       }
@@ -113,7 +114,7 @@ export class TradeAccount {
     }
   }
 
-  async isOrderMatched() {}
+  async isOrderMatched() { }
 }
 
 class Coin {
