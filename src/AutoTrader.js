@@ -83,11 +83,12 @@ export class AutoTrader {
   async trade() {
     console.log("trading...");
     let result = false;
-    // if (this.testMode) {
-    // console.log("trading in test mode (with +- 0.00005000)...");
-    // this.tradeInfo.sellPrice += 0.00005000
-    // this.tradeInfo.buyPrice -= 0.00005000
-    // }
+
+    if (this.testMode) {
+      console.log("trading in test mode (with +- 0.00005000)...");
+      this.tradeInfo.sellPrice += 0.0002
+      this.tradeInfo.buyPrice -= 0.0002
+    }
 
     let okToTrade = await this.tradable();
     if (okToTrade) {

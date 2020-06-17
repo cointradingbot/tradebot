@@ -50,6 +50,10 @@ export class TradeBot {
               profile.fixedQuantity,
               profile.plusPointToWin
             );
+            const quantities = [profile.sellAccount.currentBidQty, profile.buyAccount.currentAskQty, profile.fixedQuantity];
+            const realTradeQty = Math.min(...quantities);
+
+            const binanceMinQty = 3000
 
             let date = new Date().toLocaleString();
             let content =
@@ -63,7 +67,7 @@ export class TradeBot {
               `${
               profile.sellAccount.baseCoin.token
               } Profit: ${tradeInfo.baseCoinProfit.toFixed(8)} - ` +
-              `Qty: ${tradeInfo.coinQuantityAtSell}/${tradeInfo.baseCoinQuantityAtBuy}`;
+              `Qty: ${tradeInfo.coinQuantityAtSell}/${tradeInfo.baseCoinQuantityAtBuy.toFixed(0)}[${realTradeQty}]`;
 
             let jsonContent = {
               dateTime: date,
@@ -84,38 +88,17 @@ export class TradeBot {
               baseCoinQty: tradeInfo.baseCoinQuantityAtBuy,
               category: "arbitrage",
             };
-            if (config["saveToCosmos"] && tradeInfo.baseCoinProfit > 0)
-              await this.container.items.create(jsonContent);
-            // if (previousColor === 'green') {
-            //     console.log(chalk.bgWhiteBright(chalk.black(content)))
-            //     previousColor = 'cyan'
-            // } else {
-            //     console.log(chalk.bgCyanBright(chalk.black(content)))
-            //     previousColor = 'green'
-            // }
-            // console.log('')
 
-            this.io.emit("price", content);
-            this.io.emit("pricejson", JSON.stringify(jsonContent));
-
-            if (
-              tradeInfo.deltaBidAsk >= profile.expectedDelta &&
-              tradeInfo.baseCoinProfit > 0
+            if (true
+              // tradeInfo.deltaBidAsk >= profile.expectedDelta &&
+              // tradeInfo.baseCoinProfit > 0
             ) {
               console.log(chalk.bgGreenBright(chalk.black(content)));
-              // this.kafkaClient.producer.send([{
-              //     topic: 'matchedtransactions',
-              //     messages: JSON.stringify(jsonContent),
-              //     partition: 0
-              // }], (error, data) => {
-              //     console.log(data);
-              // })
 
-              if (this.tradebotOptions.isAutoTrading) {
+
+              if (this.tradebotOptions.isAutoTrading && realTradeQty > binanceMinQty) {
                 console.log("auto trading ...");
                 // Change to real bid / ask
-                const quantities = [profile.sellAccount.currentBidQty, profile.buyAccount.currentAskQty, profile.fixedQuantity];
-                const realTradeQty = Math.min(...quantities);
                 tradeInfo.coinQuantityAtBuy = realTradeQty
                 tradeInfo.coinQuantityAtSell = realTradeQty
 
@@ -141,6 +124,12 @@ export class TradeBot {
             } else {
               console.log(chalk.bgWhiteBright(chalk.black(content)));
             }
+            if (config["saveToCosmos"] && tradeInfo.baseCoinProfit > 0)
+              await this.container.items.create(jsonContent);
+
+            this.io.emit("price", content);
+            this.io.emit("pricejson", JSON.stringify(jsonContent));
+
             console.log("");
             // autobalance mode
             // if base coin at buy side is greater than 60%
@@ -164,12 +153,12 @@ export class TradeBot {
             this.timeLeftToSendEmail -= 2;
             await delay(2000);
           } catch (err) {
+            console.log(err);
             if (err instanceof TradingError) {
               errorPlatform = err.errorPlatform;
               // emailHelper.sendEmail('TRADING ERROR', err.message)
               process.exit();
             }
-            console.log(err);
             await delay(1000);
             this.quitInTestMode();
           }
