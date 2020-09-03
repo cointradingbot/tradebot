@@ -7,8 +7,8 @@
     "fromName": "FROM_NAME"
   },
   "cosmos": {
-    "endpoint": "",
-    "key": "",
+    "endpoint": "https://ENDPOINT.documents.azure.com:443/",
+    "key": "SECRET",
     "databaseId": "Arbitrage",
     "containerId": "Items",
     "partitionKey": {
@@ -18,23 +18,24 @@
       ]
     }
   },
-  "saveToCosmos": true,
+  "saveToCosmos": false,
   "isAutoTrading": false,
   "tradeFlow": "AutoSwitch",
   "autoBalance": false,
   "usingKafka": false,
   "kafkaClient": "192.168.1.5:9092",
+  "baseCoin": "USDT",
+  "testMode": true,
   "tradeProfiles": [
     {
-      "token": "ONE",
-      "fixedQuantity": 100000,
+      "token": "JST",
+      "fixedQuantity": 30000,
       "plusPointToWin": 0.00000001,
       "expectedDelta": 0.00000199,
       "baseCoin": "USDT",
       "exchanges": [
         "binance",
-        "bitmax",
-        "kucoin"
+        "justswap"
       ],
       "active": true
     },
@@ -43,7 +44,7 @@
       "fixedQuantity": 1000,
       "plusPointToWin": 0.00000001,
       "expectedDelta": 0.00000199,
-      "baseCoin": "USDT",
+      "baseCoin": "BTC",
       "exchanges": [
         "binance",
         "bittrex"
@@ -63,8 +64,6 @@
       "active": false
     }
   ],
-  "baseCoin": "USDT",
-  "testMode": true,
   "tradingPlatforms": [
     {
       "name": "binance",
@@ -72,6 +71,16 @@
       "tradingFee": 0.1,
       "api_key": "API_KEY",
       "api_secret": "API_SECRET"
+    },
+    {
+      "name": "kucoin",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.1,
+      "api_key": "5ee8dfd26f074e00080899b2",
+      "api_secret": "337b1cd7-1a52-46c9-94ee-7911d7468481",
+      "password": "2903851982",
+      "public_key": "pk",
+      "private_key": "pk"
     },
     {
       "name": "rightbtc",
@@ -173,9 +182,18 @@
       "private_key": "pk"
     },
     {
-      "name": "kucoin",
+      "name": "justswap",
       "bitcoinTransferFee": 0.001,
-      "tradingFee": 0.1,
+      "tradingFee": 0.9,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET",
+      "public_key": "pk",
+      "private_key": "pk"
+    },
+    {
+      "name": "poloniex",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.2,
       "api_key": "API_KEY",
       "api_secret": "API_SECRET",
       "public_key": "pk",

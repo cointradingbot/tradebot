@@ -89,9 +89,9 @@ export class TradeBot {
               category: "arbitrage",
             };
 
-            if (true
-              // tradeInfo.deltaBidAsk >= profile.expectedDelta &&
-              // tradeInfo.baseCoinProfit > 0
+            if (
+              tradeInfo.deltaBidAsk >= profile.expectedDelta &&
+              tradeInfo.baseCoinProfit > 0
             ) {
               console.log(chalk.bgGreenBright(chalk.black(content)));
 

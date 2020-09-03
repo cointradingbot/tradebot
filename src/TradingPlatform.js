@@ -1,5 +1,6 @@
 import { BinanceDEXAdaptor } from './adaptors/BinanceDEXAdaptor';
 import { CCXTAdaptor } from './adaptors/CCXTAdaptor';
+import { JustswapAdaptor } from './adaptors/JustswapAdaptor';
 
 export class TradingPlatform {
     constructor(name, apiKey, secret, publicKey, privateKey, password) {
@@ -7,6 +8,9 @@ export class TradingPlatform {
             case "binancedex":
                 // Binance DEX adaptor
                 this.adaptor = new BinanceDEXAdaptor(publicKey, privateKey)
+                break;
+            case "justswap":
+                this.adaptor = new JustswapAdaptor(publicKey, privateKey)
                 break;
             default:
                 // ccxt adaptor

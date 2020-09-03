@@ -28,25 +28,44 @@ export class TradeAccount {
   }
 
   async updatePrices() {
-    try {
-      let result = await this.tradingPlatform.fetchOrderBook(
-        this.currentTradeCoin.token,
-        this.baseCoin.token
-      );
+    let result = undefined;
+    switch (this.tradingPlatform.name) {
+      case 'justswap':
+        result = await this.tradingPlatform.fetchTicker(
+          this.currentTradeCoin.token,
+          this.baseCoin.token
+        );
+        const TRXPrice = Number(result.data['0_TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t'].price);
+        const JSTPrice = Number(result.data['0_TCFLL5dx5ZJdKnWuesXxi1VPwjLVmWZZy9'].price);
+        const JSTPriceinUSDT = JSTPrice / TRXPrice;
+        this.currentAskPrice = Number(JSTPriceinUSDT);
+        this.currentAskQty = Number(result.data.quote_volume);
+        this.currentBidPrice = Number(JSTPriceinUSDT);
+        this.currentBidQty = Number(result.data.quote_volume);
 
-      this.currentAskPrice = Number(result.asks[0][0]);
-      this.currentAskQty = Number(result.asks[0][1]);
-      this.currentBidPrice = Number(result.bids[0][0]);
-      this.currentBidQty = Number(result.bids[0][1]);
-    } catch {
-      let result = await this.tradingPlatform.fetchTicker(
-        this.currentTradeCoin.token,
-        this.baseCoin.token
-      );
-      this.currentAskPrice = result.ask;
-      this.currentAskQty = result.askVolume;
-      this.currentBidPrice = result.bid;
-      this.currentBidQty = result.bidVolume;
+        break;
+      case 'binancedex':
+        result = await this.tradingPlatform.fetchTicker(
+          this.currentTradeCoin.token,
+          this.baseCoin.token
+        );
+        this.currentAskPrice = result.ask;
+        this.currentAskQty = result.askVolume;
+        this.currentBidPrice = result.bid;
+        this.currentBidQty = result.bidVolume;
+        break;
+      default:
+        result = await this.tradingPlatform.fetchOrderBook(
+          this.currentTradeCoin.token,
+          this.baseCoin.token
+        );
+
+        this.currentAskPrice = Number(result.asks[0][0]);
+        this.currentAskQty = Number(result.asks[0][1]);
+        this.currentBidPrice = Number(result.bids[0][0]);
+        this.currentBidQty = Number(result.bids[0][1]);
+
+        break;
     }
   }
 
