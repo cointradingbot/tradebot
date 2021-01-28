@@ -37,19 +37,22 @@
         "binance",
         "justswap"
       ],
-      "active": true
+      "active": false
     },
     {
-      "token": "XVG",
+      "token": "ONE",
       "fixedQuantity": 1000,
       "plusPointToWin": 0.00000001,
       "expectedDelta": 0.00000199,
-      "baseCoin": "BTC",
+      "baseCoin": "USDT",
       "exchanges": [
         "binance",
-        "bittrex"
+        "bitmax",
+        "kucoin",
+        "huobipro",
+        "binanceus"
       ],
-      "active": false
+      "active": true
     },
     {
       "token": "MATIC",
@@ -192,6 +195,24 @@
     },
     {
       "name": "poloniex",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.2,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET",
+      "public_key": "pk",
+      "private_key": "pk"
+    },
+    {
+      "name": "bitmax",
+      "bitcoinTransferFee": 0.001,
+      "tradingFee": 0.2,
+      "api_key": "API_KEY",
+      "api_secret": "API_SECRET",
+      "public_key": "pk",
+      "private_key": "pk"
+    },
+    {
+      "name": "binanceus",
       "bitcoinTransferFee": 0.001,
       "tradingFee": 0.2,
       "api_key": "API_KEY",
