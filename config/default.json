@@ -55,6 +55,20 @@
       "active": true
     },
     {
+      "token": "LINK",
+      "fixedQuantity": 1000,
+      "plusPointToWin": 0.00000001,
+      "expectedDelta": 0.00000199,
+      "baseCoin": "USDT",
+      "exchanges": [
+        "binance",
+        "bitmax",
+        "kucoin",
+        "huobipro"
+      ],
+      "active": false
+    },
+    {
       "token": "MATIC",
       "fixedQuantity": 1000,
       "plusPointToWin": 0.00000001,
